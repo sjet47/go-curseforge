@@ -7,16 +7,18 @@ import (
 )
 
 type API struct {
-	files.ModFiles
 	files.ModFile
+	files.ModFiles
+	files.Files
 	files.ModFileChangelog
 	files.ModFileUrl
 }
 
 func New(t http.RoundTripper) *API {
 	return &API{
-		ModFiles:         files.NewModFilesAPI(t),
 		ModFile:          files.NewModFileAPI(t),
+		ModFiles:         files.NewModFilesAPI(t),
+		Files:            files.NewFilesAPI(t),
 		ModFileChangelog: files.NewModFileChangelogAPI(t),
 		ModFileUrl:       files.NewModFileUrlAPI(t),
 	}
