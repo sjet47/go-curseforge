@@ -9,7 +9,7 @@ import (
 )
 
 func NewFileUrlAPI(t http.RoundTripper) FileUrl {
-	return func(modID, fileID string, o ...func(*FileUrlRequest)) (*http.Response, error) {
+	return func(modID schema.ModID, fileID schema.FileID, o ...func(*FileUrlRequest)) (*http.Response, error) {
 		r := new(FileUrlRequest)
 		for _, f := range o {
 			f(r)
@@ -20,20 +20,20 @@ func NewFileUrlAPI(t http.RoundTripper) FileUrl {
 	}
 }
 
-type FileUrl func(modID, fileID string, o ...func(*FileUrlRequest)) (*http.Response, error)
+type FileUrl func(modID schema.ModID, fileID schema.FileID, o ...func(*FileUrlRequest)) (*http.Response, error)
 
 // https://docs.curseforge.com/#get-mod-file-download-url
 type FileUrlRequest struct {
 	ctx context.Context
 
-	ModID  string
-	FileID string
+	ModID  schema.ModID
+	FileID schema.FileID
 }
 
 func (r *FileUrlRequest) Do(ctx context.Context, t http.RoundTripper) (*http.Response, error) {
 	var (
 		method = http.MethodGet
-		path   = fmt.Sprintf("%s/v1/mods/%s/files/%s/download-url", schema.BaseUrl, r.ModID, r.FileID)
+		path   = fmt.Sprintf("%s/v1/mods/%d/files/%d/download-url", schema.BaseUrl, r.ModID, r.FileID)
 	)
 
 	req, err := http.NewRequest(method, path, nil)

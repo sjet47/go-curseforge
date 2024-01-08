@@ -10,7 +10,7 @@ import (
 )
 
 func NewFilesAPI(t http.RoundTripper) Files {
-	return func(modID string, o ...func(*FilesRequest)) (*http.Response, error) {
+	return func(modID schema.ModID, o ...func(*FilesRequest)) (*http.Response, error) {
 		r := new(FilesRequest)
 		for _, f := range o {
 			f(r)
@@ -20,13 +20,13 @@ func NewFilesAPI(t http.RoundTripper) Files {
 	}
 }
 
-type Files func(modID string, o ...func(*FilesRequest)) (*http.Response, error)
+type Files func(modID schema.ModID, o ...func(*FilesRequest)) (*http.Response, error)
 
 // https://docs.curseforge.com/#get-mod-files
 type FilesRequest struct {
 	ctx context.Context
 
-	ModID             string
+	ModID             schema.ModID
 	GameVersion       *string
 	GameVersionTypeID *int
 	ModLoader         *schema.ModLoader
@@ -38,7 +38,7 @@ func (r *FilesRequest) Do(ctx context.Context, t http.RoundTripper) (*http.Respo
 	var (
 		method = http.MethodGet
 		params = make(map[string]string)
-		path   = fmt.Sprintf("%s/v1/mods/%s/files", schema.BaseUrl, r.ModID)
+		path   = fmt.Sprintf("%s/v1/mods/%d/files", schema.BaseUrl, r.ModID)
 	)
 
 	if r.GameVersion != nil {

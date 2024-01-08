@@ -9,7 +9,7 @@ import (
 )
 
 func NewFileChangelogAPI(t http.RoundTripper) FileChangelog {
-	return func(modID, fileID string, o ...func(*FileChangelogRequest)) (*http.Response, error) {
+	return func(modID schema.ModID, fileID schema.FileID, o ...func(*FileChangelogRequest)) (*http.Response, error) {
 		r := new(FileChangelogRequest)
 		for _, f := range o {
 			f(r)
@@ -20,20 +20,20 @@ func NewFileChangelogAPI(t http.RoundTripper) FileChangelog {
 	}
 }
 
-type FileChangelog func(modID, fileID string, o ...func(*FileChangelogRequest)) (*http.Response, error)
+type FileChangelog func(modID schema.ModID, fileID schema.FileID, o ...func(*FileChangelogRequest)) (*http.Response, error)
 
 // https://docs.curseforge.com/#get-mod-file-changelog
 type FileChangelogRequest struct {
 	ctx context.Context
 
-	ModID  string
-	FileID string
+	ModID  schema.ModID
+	FileID schema.FileID
 }
 
 func (r *FileChangelogRequest) Do(ctx context.Context, t http.RoundTripper) (*http.Response, error) {
 	var (
 		method = http.MethodGet
-		path   = fmt.Sprintf("%s/v1/mods/%s/files/%s/changelog", schema.BaseUrl, r.ModID, r.FileID)
+		path   = fmt.Sprintf("%s/v1/mods/%d/files/%d/changelog", schema.BaseUrl, r.ModID, r.FileID)
 	)
 
 	req, err := http.NewRequest(method, path, nil)
