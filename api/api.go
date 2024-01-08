@@ -9,11 +9,13 @@ import (
 type API struct {
 	files.Files
 	files.File
+	files.FileChangelog
 }
 
 func New(t http.RoundTripper) *API {
 	return &API{
-		Files: files.NewFilesAPI(t),
-		File:  files.NewFileAPI(t),
+		Files:         files.NewFilesAPI(t),
+		File:          files.NewFileAPI(t),
+		FileChangelog: files.NewFileChangelogAPI(t),
 	}
 }
