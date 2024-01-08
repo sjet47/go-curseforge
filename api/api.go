@@ -8,10 +8,12 @@ import (
 
 type API struct {
 	files.Files
+	files.File
 }
 
 func New(t http.RoundTripper) *API {
 	return &API{
 		Files: files.NewFilesAPI(t),
+		File:  files.NewFileAPI(t),
 	}
 }
