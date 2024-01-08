@@ -8,9 +8,9 @@ import (
 	"github.com/ASjet/go-curseforge/schema"
 )
 
-func NewFileChangelogAPI(t http.RoundTripper) FileChangelog {
-	return func(modID schema.ModID, fileID schema.FileID, o ...func(*FileChangelogRequest)) (*http.Response, error) {
-		r := new(FileChangelogRequest)
+func NewModFileChangelogAPI(t http.RoundTripper) ModFileChangelog {
+	return func(modID schema.ModID, fileID schema.FileID, o ...func(*ModFileChangelogRequest)) (*http.Response, error) {
+		r := new(ModFileChangelogRequest)
 		for _, f := range o {
 			f(r)
 		}
@@ -20,17 +20,17 @@ func NewFileChangelogAPI(t http.RoundTripper) FileChangelog {
 	}
 }
 
-type FileChangelog func(modID schema.ModID, fileID schema.FileID, o ...func(*FileChangelogRequest)) (*http.Response, error)
+type ModFileChangelog func(modID schema.ModID, fileID schema.FileID, o ...func(*ModFileChangelogRequest)) (*http.Response, error)
 
 // https://docs.curseforge.com/#get-mod-file-changelog
-type FileChangelogRequest struct {
+type ModFileChangelogRequest struct {
 	ctx context.Context
 
 	ModID  schema.ModID
 	FileID schema.FileID
 }
 
-func (r *FileChangelogRequest) Do(ctx context.Context, t http.RoundTripper) (*http.Response, error) {
+func (r *ModFileChangelogRequest) Do(ctx context.Context, t http.RoundTripper) (*http.Response, error) {
 	var (
 		method = http.MethodGet
 		path   = fmt.Sprintf("%s/v1/mods/%d/files/%d/changelog", schema.BaseUrl, r.ModID, r.FileID)
@@ -48,8 +48,8 @@ func (r *FileChangelogRequest) Do(ctx context.Context, t http.RoundTripper) (*ht
 	return t.RoundTrip(req)
 }
 
-func (r FileChangelog) WithContext(ctx context.Context) func(*FileChangelogRequest) {
-	return func(o *FileChangelogRequest) {
+func (r ModFileChangelog) WithContext(ctx context.Context) func(*ModFileChangelogRequest) {
+	return func(o *ModFileChangelogRequest) {
 		o.ctx = ctx
 	}
 }

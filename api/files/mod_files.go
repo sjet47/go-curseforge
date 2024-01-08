@@ -9,9 +9,9 @@ import (
 	"github.com/ASjet/go-curseforge/schema"
 )
 
-func NewFilesAPI(t http.RoundTripper) Files {
-	return func(modID schema.ModID, o ...func(*FilesRequest)) (*http.Response, error) {
-		r := new(FilesRequest)
+func NewModFilesAPI(t http.RoundTripper) ModFiles {
+	return func(modID schema.ModID, o ...func(*ModFilesRequest)) (*http.Response, error) {
+		r := new(ModFilesRequest)
 		for _, f := range o {
 			f(r)
 		}
@@ -20,10 +20,10 @@ func NewFilesAPI(t http.RoundTripper) Files {
 	}
 }
 
-type Files func(modID schema.ModID, o ...func(*FilesRequest)) (*http.Response, error)
+type ModFiles func(modID schema.ModID, o ...func(*ModFilesRequest)) (*http.Response, error)
 
 // https://docs.curseforge.com/#get-mod-files
-type FilesRequest struct {
+type ModFilesRequest struct {
 	ctx context.Context
 
 	ModID             schema.ModID
@@ -34,7 +34,7 @@ type FilesRequest struct {
 	PageSize          int
 }
 
-func (r *FilesRequest) Do(ctx context.Context, t http.RoundTripper) (*http.Response, error) {
+func (r *ModFilesRequest) Do(ctx context.Context, t http.RoundTripper) (*http.Response, error) {
 	var (
 		method = http.MethodGet
 		params = make(map[string]string)
@@ -77,38 +77,38 @@ func (r *FilesRequest) Do(ctx context.Context, t http.RoundTripper) (*http.Respo
 	return t.RoundTrip(req)
 }
 
-func (r Files) WithContext(ctx context.Context) func(*FilesRequest) {
-	return func(o *FilesRequest) {
+func (r ModFiles) WithContext(ctx context.Context) func(*ModFilesRequest) {
+	return func(o *ModFilesRequest) {
 		o.ctx = ctx
 	}
 }
 
-func (r Files) WithGameVersion(gameVersion string) func(*FilesRequest) {
-	return func(o *FilesRequest) {
+func (r ModFiles) WithGameVersion(gameVersion string) func(*ModFilesRequest) {
+	return func(o *ModFilesRequest) {
 		o.GameVersion = &gameVersion
 	}
 }
 
-func (r Files) WithGameVersionTypeID(gameVersionTypeID int) func(*FilesRequest) {
-	return func(o *FilesRequest) {
+func (r ModFiles) WithGameVersionTypeID(gameVersionTypeID int) func(*ModFilesRequest) {
+	return func(o *ModFilesRequest) {
 		o.GameVersionTypeID = &gameVersionTypeID
 	}
 }
 
-func (r Files) WithModLoader(modLoader schema.ModLoader) func(*FilesRequest) {
-	return func(o *FilesRequest) {
+func (r ModFiles) WithModLoader(modLoader schema.ModLoader) func(*ModFilesRequest) {
+	return func(o *ModFilesRequest) {
 		o.ModLoader = &modLoader
 	}
 }
 
-func (r Files) WithPageNum(pageNum int) func(*FilesRequest) {
-	return func(o *FilesRequest) {
+func (r ModFiles) WithPageNum(pageNum int) func(*ModFilesRequest) {
+	return func(o *ModFilesRequest) {
 		o.PageNum = pageNum
 	}
 }
 
-func (r Files) WithPageSize(pageSize int) func(*FilesRequest) {
-	return func(o *FilesRequest) {
+func (r ModFiles) WithPageSize(pageSize int) func(*ModFilesRequest) {
+	return func(o *ModFilesRequest) {
 		o.PageSize = pageSize
 	}
 }
