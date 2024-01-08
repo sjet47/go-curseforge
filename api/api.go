@@ -10,6 +10,7 @@ type API struct {
 	files.Files
 	files.File
 	files.FileChangelog
+	files.FileUrl
 }
 
 func New(t http.RoundTripper) *API {
@@ -17,5 +18,6 @@ func New(t http.RoundTripper) *API {
 		Files:         files.NewFilesAPI(t),
 		File:          files.NewFileAPI(t),
 		FileChangelog: files.NewFileChangelogAPI(t),
+		FileUrl:       files.NewFileUrlAPI(t),
 	}
 }
