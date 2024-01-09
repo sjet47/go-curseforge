@@ -48,7 +48,7 @@ func (r *ModFileChangelogRequest) Do(ctx context.Context, t http.RoundTripper) (
 	return t.RoundTrip(req)
 }
 
-func (r ModFileChangelog) WithContext(ctx context.Context) func(*ModFileChangelogRequest) {
+func (ModFileChangelog) WithContext(ctx context.Context) func(*ModFileChangelogRequest) {
 	return func(o *ModFileChangelogRequest) {
 		o.ctx = ctx
 	}

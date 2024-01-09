@@ -1,4 +1,4 @@
-package schema
+package enum
 
 import (
 	"errors"
@@ -10,13 +10,13 @@ import (
 type ModLoader int
 
 const (
-	ModLoaderAny        = 0
-	ModLoaderForge      = 1
-	ModLoaderCauldron   = 2
-	ModLoaderLiteLoader = 3
-	ModLoaderFabric     = 4
-	ModLoaderQuilt      = 5
-	ModLoaderNeoForge   = 6
+	ModLoaderAny        ModLoader = 0
+	ModLoaderForge      ModLoader = 1
+	ModLoaderCauldron   ModLoader = 2
+	ModLoaderLiteLoader ModLoader = 3
+	ModLoaderFabric     ModLoader = 4
+	ModLoaderQuilt      ModLoader = 5
+	ModLoaderNeoForge   ModLoader = 6
 )
 
 func (ml ModLoader) String() string {
