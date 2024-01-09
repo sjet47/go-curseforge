@@ -4,6 +4,6 @@
 
 ## 🎯 TODO
 
-- [ ] 🔥 `Mods` APIs
+- [x] 🔥 `Mods` APIs
 - [ ] 📒 API Document
 - [ ] ⚙️ Typed response
