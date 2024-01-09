@@ -27,7 +27,7 @@ type Files func(fileIDs []schema.FileID, o ...func(*FilesRequest)) (*http.Respon
 type FilesRequest struct {
 	ctx context.Context
 
-	FileIDs []schema.FileID
+	schema.GetModFilesRequestBody
 }
 
 func (r *FilesRequest) Do(ctx context.Context, t http.RoundTripper) (*http.Response, error) {
@@ -36,12 +36,8 @@ func (r *FilesRequest) Do(ctx context.Context, t http.RoundTripper) (*http.Respo
 		path   = fmt.Sprintf("%s/v1/mods/files", schema.BaseUrl)
 	)
 
-	body := &schema.GetModFilesRequestBody{
-		FileIDs: r.FileIDs,
-	}
-
 	buf := new(bytes.Buffer)
-	if err := json.NewEncoder(buf).Encode(body); err != nil {
+	if err := json.NewEncoder(buf).Encode(&r.GetModFilesRequestBody); err != nil {
 		return nil, err
 	}
 

@@ -27,8 +27,7 @@ type GetMods func(modIDs []schema.ModID, o ...func(*GetModsRequest)) (*http.Resp
 type GetModsRequest struct {
 	ctx context.Context
 
-	ModIDs []schema.ModID
-	OnlyPC bool
+	schema.GetModsByIdsListRequestBody
 }
 
 func (r *GetModsRequest) Do(ctx context.Context, t http.RoundTripper) (*http.Response, error) {
@@ -37,13 +36,8 @@ func (r *GetModsRequest) Do(ctx context.Context, t http.RoundTripper) (*http.Res
 		path   = fmt.Sprintf("%s/v1/mods", schema.BaseUrl)
 	)
 
-	body := &schema.GetModsByIdsListRequestBody{
-		ModIDs: r.ModIDs,
-		OnlyPC: r.OnlyPC,
-	}
-
 	buf := new(bytes.Buffer)
-	if err := json.NewEncoder(buf).Encode(body); err != nil {
+	if err := json.NewEncoder(buf).Encode(&r.GetModsByIdsListRequestBody); err != nil {
 		return nil, err
 	}
 
