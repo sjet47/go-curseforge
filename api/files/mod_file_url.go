@@ -48,7 +48,7 @@ func (r *ModFileUrlRequest) Do(ctx context.Context, t http.RoundTripper) (*http.
 	return t.RoundTrip(req)
 }
 
-func (r ModFileUrl) WithContext(ctx context.Context) func(*ModFileUrlRequest) {
+func (ModFileUrl) WithContext(ctx context.Context) func(*ModFileUrlRequest) {
 	return func(o *ModFileUrlRequest) {
 		o.ctx = ctx
 	}

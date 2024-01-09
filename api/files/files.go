@@ -59,7 +59,7 @@ func (r *FilesRequest) Do(ctx context.Context, t http.RoundTripper) (*http.Respo
 	return t.RoundTrip(req)
 }
 
-func (r Files) WithContext(ctx context.Context) func(*FilesRequest) {
+func (Files) WithContext(ctx context.Context) func(*FilesRequest) {
 	return func(o *FilesRequest) {
 		o.ctx = ctx
 	}
