@@ -7,6 +7,7 @@ import (
 	"strconv"
 
 	"github.com/ASjet/go-curseforge/schema"
+	"github.com/ASjet/go-curseforge/schema/enum"
 )
 
 func NewModFilesAPI(t http.RoundTripper) ModFiles {
@@ -28,8 +29,8 @@ type ModFilesRequest struct {
 
 	ModID             schema.ModID
 	GameVersion       *string
-	GameVersionTypeID *int
-	ModLoader         *schema.ModLoader
+	GameVersionTypeID *enum.GameVersionType
+	ModLoader         *enum.ModLoader
 	Index             int // Page number
 	PageSize          int
 }
@@ -45,7 +46,7 @@ func (r *ModFilesRequest) Do(ctx context.Context, t http.RoundTripper) (*http.Re
 		params["gameVersion"] = *r.GameVersion
 	}
 	if r.GameVersionTypeID != nil {
-		params["gameVersionTypeId"] = strconv.Itoa(*r.GameVersionTypeID)
+		params["gameVersionTypeId"] = r.GameVersionTypeID.Param()
 	}
 	if r.ModLoader != nil {
 		params["modLoaderType"] = r.ModLoader.Param()
@@ -89,13 +90,13 @@ func (ModFiles) WithGameVersion(gameVersion string) func(*ModFilesRequest) {
 	}
 }
 
-func (ModFiles) WithGameVersionTypeID(gameVersionTypeID int) func(*ModFilesRequest) {
+func (ModFiles) WithGameVersionTypeID(gameVersionTypeID enum.GameVersionType) func(*ModFilesRequest) {
 	return func(o *ModFilesRequest) {
 		o.GameVersionTypeID = &gameVersionTypeID
 	}
 }
 
-func (ModFiles) WithModLoader(modLoader schema.ModLoader) func(*ModFilesRequest) {
+func (ModFiles) WithModLoader(modLoader enum.ModLoader) func(*ModFilesRequest) {
 	return func(o *ModFilesRequest) {
 		o.ModLoader = &modLoader
 	}
