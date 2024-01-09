@@ -36,7 +36,7 @@ func (r *FilesRequest) Do(ctx context.Context, t http.RoundTripper) (*http.Respo
 		path   = fmt.Sprintf("%s/v1/mods/files", schema.BaseUrl)
 	)
 
-	body := &schema.GetModsByIdsListRequestBody{
+	body := &schema.GetModFilesRequestBody{
 		FileIDs: r.FileIDs,
 	}
 
