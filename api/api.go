@@ -12,6 +12,7 @@ type API struct {
 	mods.GetMod
 	mods.GetMods
 	mods.GetFeaturedMods
+	mods.GetModDescription
 
 	files.ModFile
 	files.ModFiles
@@ -22,10 +23,11 @@ type API struct {
 
 func New(t http.RoundTripper) *API {
 	return &API{
-		SearchMod:       mods.NewSearchModAPI(t),
-		GetMod:          mods.NewGetModAPI(t),
-		GetMods:         mods.NewGetModsAPI(t),
-		GetFeaturedMods: mods.NewGetFeaturedModsAPI(t),
+		SearchMod:         mods.NewSearchModAPI(t),
+		GetMod:            mods.NewGetModAPI(t),
+		GetMods:           mods.NewGetModsAPI(t),
+		GetFeaturedMods:   mods.NewGetFeaturedModsAPI(t),
+		GetModDescription: mods.NewGetModDescriptionAPI(t),
 
 		ModFile:          files.NewModFileAPI(t),
 		ModFiles:         files.NewModFilesAPI(t),
