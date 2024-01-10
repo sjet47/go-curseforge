@@ -1,5 +1,6 @@
 package enum
 
+// https://docs.curseforge.com/#tocS_HashAlgo
 type HashAlgo int
 
 const (
