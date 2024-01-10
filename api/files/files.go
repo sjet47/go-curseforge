@@ -11,17 +11,17 @@ import (
 )
 
 func NewFilesAPI(t http.RoundTripper) Files {
-	return func(fileIDs []schema.FileID, o ...func(*FilesRequest)) (*http.Response, error) {
+	return func(fileIDs []schema.FileID, o ...func(*FilesRequest)) (*schema.GetFilesResponse, error) {
 		r := new(FilesRequest)
 		for _, f := range o {
 			f(r)
 		}
 		r.FileIDs = fileIDs
-		return r.Do(r.ctx, t)
+		return schema.UnmarshalResponse[schema.GetFilesResponse](r.Do(r.ctx, t))
 	}
 }
 
-type Files func(fileIDs []schema.FileID, o ...func(*FilesRequest)) (*http.Response, error)
+type Files func(fileIDs []schema.FileID, o ...func(*FilesRequest)) (*schema.GetFilesResponse, error)
 
 // https://docs.curseforge.com/#get-files
 type FilesRequest struct {

@@ -9,18 +9,18 @@ import (
 )
 
 func NewModFileChangelogAPI(t http.RoundTripper) ModFileChangelog {
-	return func(modID schema.ModID, fileID schema.FileID, o ...func(*ModFileChangelogRequest)) (*http.Response, error) {
+	return func(modID schema.ModID, fileID schema.FileID, o ...func(*ModFileChangelogRequest)) (*schema.StringResponse, error) {
 		r := new(ModFileChangelogRequest)
 		for _, f := range o {
 			f(r)
 		}
 		r.ModID = modID
 		r.FileID = fileID
-		return r.Do(r.ctx, t)
+		return schema.UnmarshalResponse[schema.StringResponse](r.Do(r.ctx, t))
 	}
 }
 
-type ModFileChangelog func(modID schema.ModID, fileID schema.FileID, o ...func(*ModFileChangelogRequest)) (*http.Response, error)
+type ModFileChangelog func(modID schema.ModID, fileID schema.FileID, o ...func(*ModFileChangelogRequest)) (*schema.StringResponse, error)
 
 // https://docs.curseforge.com/#get-mod-file-changelog
 type ModFileChangelogRequest struct {

@@ -9,18 +9,18 @@ import (
 )
 
 func NewModFileUrlAPI(t http.RoundTripper) ModFileUrl {
-	return func(modID schema.ModID, fileID schema.FileID, o ...func(*ModFileUrlRequest)) (*http.Response, error) {
+	return func(modID schema.ModID, fileID schema.FileID, o ...func(*ModFileUrlRequest)) (*schema.StringResponse, error) {
 		r := new(ModFileUrlRequest)
 		for _, f := range o {
 			f(r)
 		}
 		r.ModID = modID
 		r.FileID = fileID
-		return r.Do(r.ctx, t)
+		return schema.UnmarshalResponse[schema.StringResponse](r.Do(r.ctx, t))
 	}
 }
 
-type ModFileUrl func(modID schema.ModID, fileID schema.FileID, o ...func(*ModFileUrlRequest)) (*http.Response, error)
+type ModFileUrl func(modID schema.ModID, fileID schema.FileID, o ...func(*ModFileUrlRequest)) (*schema.StringResponse, error)
 
 // https://docs.curseforge.com/#get-mod-file-download-url
 type ModFileUrlRequest struct {

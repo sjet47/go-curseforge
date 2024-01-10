@@ -11,24 +11,24 @@ import (
 )
 
 func NewModFilesAPI(t http.RoundTripper) ModFiles {
-	return func(modID schema.ModID, o ...func(*ModFilesRequest)) (*http.Response, error) {
+	return func(modID schema.ModID, o ...func(*ModFilesRequest)) (*schema.GetModFilesResponse, error) {
 		r := new(ModFilesRequest)
 		for _, f := range o {
 			f(r)
 		}
 		r.ModID = modID
-		return r.Do(r.ctx, t)
+		return schema.UnmarshalResponse[schema.GetModFilesResponse](r.Do(r.ctx, t))
 	}
 }
 
-type ModFiles func(modID schema.ModID, o ...func(*ModFilesRequest)) (*http.Response, error)
+type ModFiles func(modID schema.ModID, o ...func(*ModFilesRequest)) (*schema.GetModFilesResponse, error)
 
 // https://docs.curseforge.com/#get-mod-files
 type ModFilesRequest struct {
 	ctx context.Context
 
 	ModID             schema.ModID
-	GameVersion       *string
+	GameVersion       *enum.GameVersion
 	GameVersionTypeID *enum.GameVersionType
 	ModLoader         *enum.ModLoader
 	Index             int // Page number
@@ -43,7 +43,7 @@ func (r *ModFilesRequest) Do(ctx context.Context, t http.RoundTripper) (*http.Re
 	)
 
 	if r.GameVersion != nil {
-		params["gameVersion"] = *r.GameVersion
+		params["gameVersion"] = r.GameVersion.Param()
 	}
 	if r.GameVersionTypeID != nil {
 		params["gameVersionTypeId"] = r.GameVersionTypeID.Param()
@@ -84,7 +84,7 @@ func (ModFiles) WithContext(ctx context.Context) func(*ModFilesRequest) {
 	}
 }
 
-func (ModFiles) WithGameVersion(gameVersion string) func(*ModFilesRequest) {
+func (ModFiles) WithGameVersion(gameVersion enum.GameVersion) func(*ModFilesRequest) {
 	return func(o *ModFilesRequest) {
 		o.GameVersion = &gameVersion
 	}
