@@ -11,17 +11,17 @@ import (
 )
 
 func NewModFilesAPI(t http.RoundTripper) ModFiles {
-	return func(modID schema.ModID, o ...func(*ModFilesRequest)) (*http.Response, error) {
+	return func(modID schema.ModID, o ...func(*ModFilesRequest)) (*schema.GetModFilesResponse, error) {
 		r := new(ModFilesRequest)
 		for _, f := range o {
 			f(r)
 		}
 		r.ModID = modID
-		return r.Do(r.ctx, t)
+		return schema.UnmarshalResponse[schema.GetModFilesResponse](r.Do(r.ctx, t))
 	}
 }
 
-type ModFiles func(modID schema.ModID, o ...func(*ModFilesRequest)) (*http.Response, error)
+type ModFiles func(modID schema.ModID, o ...func(*ModFilesRequest)) (*schema.GetModFilesResponse, error)
 
 // https://docs.curseforge.com/#get-mod-files
 type ModFilesRequest struct {

@@ -1,5 +1,22 @@
 package schema
 
+import (
+	"encoding/json"
+	"net/http"
+)
+
+func UnmarshalResponse[T any](rsp *http.Response, err error) (*T, error) {
+	if err != nil {
+		return nil, err
+	}
+	defer rsp.Body.Close()
+	result := new(T)
+	if err := json.NewDecoder(rsp.Body).Decode(result); err != nil {
+		return nil, err
+	}
+	return result, nil
+}
+
 // https://docs.curseforge.com/#tocS_String%20Response
 type StringResponse struct {
 	Data string `json:"data"`
