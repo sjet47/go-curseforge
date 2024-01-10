@@ -32,7 +32,7 @@ type SearchModRequest struct {
 	ClassID           *enum.ClassID
 	CategoryID        *enum.CategoryID
 	CategoryIDs       *string
-	GameVersion       *string
+	GameVersion       *enum.GameVersion
 	GameVersions      *string
 	SearchFilter      *string
 	SortField         *enum.ModsSearchSortField
@@ -66,7 +66,7 @@ func (r *SearchModRequest) Do(ctx context.Context, t http.RoundTripper) (*http.R
 		params["categoryIds"] = *r.CategoryIDs
 	}
 	if r.GameVersion != nil {
-		params["gameVersion"] = *r.GameVersion
+		params["gameVersion"] = r.GameVersion.Param()
 	}
 	if r.GameVersions != nil {
 		params["gameVersions"] = *r.GameVersions
@@ -158,7 +158,7 @@ func (SearchMod) WithCategoryIDs(categoryIDs ...enum.CategoryID) func(*SearchMod
 	}
 }
 
-func (SearchMod) WithGameVersion(gameVersion string) func(*SearchModRequest) {
+func (SearchMod) WithGameVersion(gameVersion enum.GameVersion) func(*SearchModRequest) {
 	return func(r *SearchModRequest) {
 		r.GameVersion = &gameVersion
 	}

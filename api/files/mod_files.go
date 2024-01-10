@@ -28,7 +28,7 @@ type ModFilesRequest struct {
 	ctx context.Context
 
 	ModID             schema.ModID
-	GameVersion       *string
+	GameVersion       *enum.GameVersion
 	GameVersionTypeID *enum.GameVersionType
 	ModLoader         *enum.ModLoader
 	Index             int // Page number
@@ -43,7 +43,7 @@ func (r *ModFilesRequest) Do(ctx context.Context, t http.RoundTripper) (*http.Re
 	)
 
 	if r.GameVersion != nil {
-		params["gameVersion"] = *r.GameVersion
+		params["gameVersion"] = r.GameVersion.Param()
 	}
 	if r.GameVersionTypeID != nil {
 		params["gameVersionTypeId"] = r.GameVersionTypeID.Param()
@@ -84,7 +84,7 @@ func (ModFiles) WithContext(ctx context.Context) func(*ModFilesRequest) {
 	}
 }
 
-func (ModFiles) WithGameVersion(gameVersion string) func(*ModFilesRequest) {
+func (ModFiles) WithGameVersion(gameVersion enum.GameVersion) func(*ModFilesRequest) {
 	return func(o *ModFilesRequest) {
 		o.GameVersion = &gameVersion
 	}
