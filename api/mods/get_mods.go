@@ -11,17 +11,17 @@ import (
 )
 
 func NewGetModsAPI(t http.RoundTripper) GetMods {
-	return func(modIDs []schema.ModID, o ...func(*GetModsRequest)) (*http.Response, error) {
+	return func(modIDs []schema.ModID, o ...func(*GetModsRequest)) (*schema.GetModsResponse, error) {
 		r := new(GetModsRequest)
 		for _, f := range o {
 			f(r)
 		}
 		r.ModIDs = modIDs
-		return r.Do(r.ctx, t)
+		return schema.UnmarshalResponse[schema.GetModsResponse](r.Do(r.ctx, t))
 	}
 }
 
-type GetMods func(modIDs []schema.ModID, o ...func(*GetModsRequest)) (*http.Response, error)
+type GetMods func(modIDs []schema.ModID, o ...func(*GetModsRequest)) (*schema.GetModsResponse, error)
 
 // https://docs.curseforge.com/#get-mods
 type GetModsRequest struct {
