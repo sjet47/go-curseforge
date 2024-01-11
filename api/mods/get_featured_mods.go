@@ -62,12 +62,6 @@ func (GetFeaturedMods) WithContext(ctx context.Context) func(*GetFeaturedModsReq
 	}
 }
 
-func (GetFeaturedMods) WithGameID(gameID enum.GameID) func(*GetFeaturedModsRequest) {
-	return func(o *GetFeaturedModsRequest) {
-		o.GameID = gameID
-	}
-}
-
 func (GetFeaturedMods) WithExcludedModIDs(modID ...schema.ModID) func(*GetFeaturedModsRequest) {
 	return func(o *GetFeaturedModsRequest) {
 		o.ExcludedModIDs = modID
