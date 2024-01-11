@@ -7,9 +7,11 @@ const (
 )
 
 type (
-	ModID    int32
-	FileID   int32
-	AuthorID int32
+	ModID      int32
+	ModAssetID int32
+	FileID     int32
+	AuthorID   int32
+	Rating     int
 )
 
 func (m ModID) Param() string {

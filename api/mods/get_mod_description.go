@@ -10,17 +10,17 @@ import (
 )
 
 func NewGetModDescriptionAPI(t http.RoundTripper) GetModDescription {
-	return func(modID schema.ModID, o ...func(*GetModDescriptionRequest)) (*http.Response, error) {
+	return func(modID schema.ModID, o ...func(*GetModDescriptionRequest)) (*schema.StringResponse, error) {
 		r := new(GetModDescriptionRequest)
 		for _, f := range o {
 			f(r)
 		}
 		r.ModID = modID
-		return r.Do(r.ctx, t)
+		return schema.UnmarshalResponse[schema.StringResponse](r.Do(r.ctx, t))
 	}
 }
 
-type GetModDescription func(modID schema.ModID, o ...func(*GetModDescriptionRequest)) (*http.Response, error)
+type GetModDescription func(modID schema.ModID, o ...func(*GetModDescriptionRequest)) (*schema.StringResponse, error)
 
 // https://docs.curseforge.com/#get-mod-description
 type GetModDescriptionRequest struct {

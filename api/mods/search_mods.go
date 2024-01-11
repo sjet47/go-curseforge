@@ -12,17 +12,17 @@ import (
 )
 
 func NewSearchModAPI(t http.RoundTripper) SearchMod {
-	return func(gameID enum.GameID, o ...func(*SearchModRequest)) (*http.Response, error) {
+	return func(gameID enum.GameID, o ...func(*SearchModRequest)) (*schema.SearchModsResponse, error) {
 		r := new(SearchModRequest)
 		for _, f := range o {
 			f(r)
 		}
 		r.GameID = gameID
-		return r.Do(r.ctx, t)
+		return schema.UnmarshalResponse[schema.SearchModsResponse](r.Do(r.ctx, t))
 	}
 }
 
-type SearchMod func(gameID enum.GameID, o ...func(*SearchModRequest)) (*http.Response, error)
+type SearchMod func(gameID enum.GameID, o ...func(*SearchModRequest)) (*schema.SearchModsResponse, error)
 
 // https://docs.curseforge.com/#search-mods
 type SearchModRequest struct {
