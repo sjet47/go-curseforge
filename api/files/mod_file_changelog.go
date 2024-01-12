@@ -8,8 +8,10 @@ import (
 	"github.com/ASjet/go-curseforge/schema"
 )
 
+type ModFileChangelogOption func(*ModFileChangelogRequest)
+
 func NewModFileChangelogAPI(t http.RoundTripper) ModFileChangelog {
-	return func(modID schema.ModID, fileID schema.FileID, o ...func(*ModFileChangelogRequest)) (*schema.StringResponse, error) {
+	return func(modID schema.ModID, fileID schema.FileID, o ...ModFileChangelogOption) (*schema.StringResponse, error) {
 		r := new(ModFileChangelogRequest)
 		for _, f := range o {
 			f(r)
@@ -20,7 +22,7 @@ func NewModFileChangelogAPI(t http.RoundTripper) ModFileChangelog {
 	}
 }
 
-type ModFileChangelog func(modID schema.ModID, fileID schema.FileID, o ...func(*ModFileChangelogRequest)) (*schema.StringResponse, error)
+type ModFileChangelog func(modID schema.ModID, fileID schema.FileID, o ...ModFileChangelogOption) (*schema.StringResponse, error)
 
 // https://docs.curseforge.com/#get-mod-file-changelog
 type ModFileChangelogRequest struct {
@@ -48,7 +50,7 @@ func (r *ModFileChangelogRequest) Do(ctx context.Context, t http.RoundTripper) (
 	return t.RoundTrip(req)
 }
 
-func (ModFileChangelog) WithContext(ctx context.Context) func(*ModFileChangelogRequest) {
+func (ModFileChangelog) WithContext(ctx context.Context) ModFileChangelogOption {
 	return func(o *ModFileChangelogRequest) {
 		o.ctx = ctx
 	}

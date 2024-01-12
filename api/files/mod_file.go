@@ -8,8 +8,10 @@ import (
 	"github.com/ASjet/go-curseforge/schema"
 )
 
+type ModFileOption func(*ModFileRequest)
+
 func NewModFileAPI(t http.RoundTripper) ModFile {
-	return func(modID schema.ModID, fileID schema.FileID, o ...func(*ModFileRequest)) (*schema.GetModFileResponse, error) {
+	return func(modID schema.ModID, fileID schema.FileID, o ...ModFileOption) (*schema.GetModFileResponse, error) {
 		r := new(ModFileRequest)
 		for _, f := range o {
 			f(r)
@@ -20,7 +22,7 @@ func NewModFileAPI(t http.RoundTripper) ModFile {
 	}
 }
 
-type ModFile func(modID schema.ModID, fileID schema.FileID, o ...func(*ModFileRequest)) (*schema.GetModFileResponse, error)
+type ModFile func(modID schema.ModID, fileID schema.FileID, o ...ModFileOption) (*schema.GetModFileResponse, error)
 
 // https://docs.curseforge.com/#get-mod-file
 type ModFileRequest struct {
@@ -48,7 +50,7 @@ func (r *ModFileRequest) Do(ctx context.Context, t http.RoundTripper) (*http.Res
 	return t.RoundTrip(req)
 }
 
-func (ModFile) WithContext(ctx context.Context) func(*ModFileRequest) {
+func (ModFile) WithContext(ctx context.Context) ModFileOption {
 	return func(o *ModFileRequest) {
 		o.ctx = ctx
 	}

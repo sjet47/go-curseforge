@@ -11,8 +11,10 @@ import (
 	"github.com/ASjet/go-curseforge/schema/enum"
 )
 
+type GetFeaturedModsOption func(*GetFeaturedModsRequest)
+
 func NewGetFeaturedModsAPI(t http.RoundTripper) GetFeaturedMods {
-	return func(gameID enum.GameID, o ...func(*GetFeaturedModsRequest)) (*schema.GetFeaturedModsRequestBody, error) {
+	return func(gameID enum.GameID, o ...GetFeaturedModsOption) (*schema.GetFeaturedModsRequestBody, error) {
 		r := new(GetFeaturedModsRequest)
 		for _, f := range o {
 			f(r)
@@ -22,7 +24,7 @@ func NewGetFeaturedModsAPI(t http.RoundTripper) GetFeaturedMods {
 	}
 }
 
-type GetFeaturedMods func(gameID enum.GameID, o ...func(*GetFeaturedModsRequest)) (*schema.GetFeaturedModsRequestBody, error)
+type GetFeaturedMods func(gameID enum.GameID, o ...GetFeaturedModsOption) (*schema.GetFeaturedModsRequestBody, error)
 
 // https://docs.curseforge.com/#get-featured-mods
 type GetFeaturedModsRequest struct {
@@ -56,19 +58,19 @@ func (r *GetFeaturedModsRequest) Do(ctx context.Context, t http.RoundTripper) (*
 	return t.RoundTrip(req)
 }
 
-func (GetFeaturedMods) WithContext(ctx context.Context) func(*GetFeaturedModsRequest) {
+func (GetFeaturedMods) WithContext(ctx context.Context) GetFeaturedModsOption {
 	return func(o *GetFeaturedModsRequest) {
 		o.ctx = ctx
 	}
 }
 
-func (GetFeaturedMods) WithExcludedModIDs(modID ...schema.ModID) func(*GetFeaturedModsRequest) {
+func (GetFeaturedMods) WithExcludedModIDs(modID ...schema.ModID) GetFeaturedModsOption {
 	return func(o *GetFeaturedModsRequest) {
 		o.ExcludedModIDs = modID
 	}
 }
 
-func (GetFeaturedMods) WithGameVersionTypeID(gameVersionTypeID enum.GameVersionType) func(*GetFeaturedModsRequest) {
+func (GetFeaturedMods) WithGameVersionTypeID(gameVersionTypeID enum.GameVersionType) GetFeaturedModsOption {
 	return func(o *GetFeaturedModsRequest) {
 		o.GameVersionTypeID = gameVersionTypeID
 	}

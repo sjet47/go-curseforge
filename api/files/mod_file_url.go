@@ -8,8 +8,10 @@ import (
 	"github.com/ASjet/go-curseforge/schema"
 )
 
+type ModFileUrlOption func(*ModFileUrlRequest)
+
 func NewModFileUrlAPI(t http.RoundTripper) ModFileUrl {
-	return func(modID schema.ModID, fileID schema.FileID, o ...func(*ModFileUrlRequest)) (*schema.StringResponse, error) {
+	return func(modID schema.ModID, fileID schema.FileID, o ...ModFileUrlOption) (*schema.StringResponse, error) {
 		r := new(ModFileUrlRequest)
 		for _, f := range o {
 			f(r)
@@ -20,7 +22,7 @@ func NewModFileUrlAPI(t http.RoundTripper) ModFileUrl {
 	}
 }
 
-type ModFileUrl func(modID schema.ModID, fileID schema.FileID, o ...func(*ModFileUrlRequest)) (*schema.StringResponse, error)
+type ModFileUrl func(modID schema.ModID, fileID schema.FileID, o ...ModFileUrlOption) (*schema.StringResponse, error)
 
 // https://docs.curseforge.com/#get-mod-file-download-url
 type ModFileUrlRequest struct {
@@ -48,7 +50,7 @@ func (r *ModFileUrlRequest) Do(ctx context.Context, t http.RoundTripper) (*http.
 	return t.RoundTrip(req)
 }
 
-func (ModFileUrl) WithContext(ctx context.Context) func(*ModFileUrlRequest) {
+func (ModFileUrl) WithContext(ctx context.Context) ModFileUrlOption {
 	return func(o *ModFileUrlRequest) {
 		o.ctx = ctx
 	}

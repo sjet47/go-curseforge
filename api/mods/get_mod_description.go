@@ -9,8 +9,10 @@ import (
 	"github.com/ASjet/go-curseforge/schema"
 )
 
+type GetModDescriptionOption func(*GetModDescriptionRequest)
+
 func NewGetModDescriptionAPI(t http.RoundTripper) GetModDescription {
-	return func(modID schema.ModID, o ...func(*GetModDescriptionRequest)) (*schema.StringResponse, error) {
+	return func(modID schema.ModID, o ...GetModDescriptionOption) (*schema.StringResponse, error) {
 		r := new(GetModDescriptionRequest)
 		for _, f := range o {
 			f(r)
@@ -20,7 +22,7 @@ func NewGetModDescriptionAPI(t http.RoundTripper) GetModDescription {
 	}
 }
 
-type GetModDescription func(modID schema.ModID, o ...func(*GetModDescriptionRequest)) (*schema.StringResponse, error)
+type GetModDescription func(modID schema.ModID, o ...GetModDescriptionOption) (*schema.StringResponse, error)
 
 // https://docs.curseforge.com/#get-mod-description
 type GetModDescriptionRequest struct {
@@ -61,25 +63,25 @@ func (r *GetModDescriptionRequest) Do(ctx context.Context, t http.RoundTripper) 
 	return t.RoundTrip(req)
 }
 
-func (GetModDescription) WithContext(ctx context.Context) func(*GetModDescriptionRequest) {
+func (GetModDescription) WithContext(ctx context.Context) GetModDescriptionOption {
 	return func(o *GetModDescriptionRequest) {
 		o.ctx = ctx
 	}
 }
 
-func (GetModDescription) WithRawContent(raw bool) func(*GetModDescriptionRequest) {
+func (GetModDescription) WithRawContent(raw bool) GetModDescriptionOption {
 	return func(o *GetModDescriptionRequest) {
 		o.Raw = &raw
 	}
 }
 
-func (GetModDescription) WithStrippedContent(stripped bool) func(*GetModDescriptionRequest) {
+func (GetModDescription) WithStrippedContent(stripped bool) GetModDescriptionOption {
 	return func(o *GetModDescriptionRequest) {
 		o.Stripped = &stripped
 	}
 }
 
-func (GetModDescription) WithMarkupContent(markup bool) func(*GetModDescriptionRequest) {
+func (GetModDescription) WithMarkupContent(markup bool) GetModDescriptionOption {
 	return func(o *GetModDescriptionRequest) {
 		o.Markup = &markup
 	}

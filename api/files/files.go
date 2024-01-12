@@ -10,8 +10,10 @@ import (
 	"github.com/ASjet/go-curseforge/schema"
 )
 
+type FilesOption func(*FilesRequest)
+
 func NewFilesAPI(t http.RoundTripper) Files {
-	return func(fileIDs []schema.FileID, o ...func(*FilesRequest)) (*schema.GetFilesResponse, error) {
+	return func(fileIDs []schema.FileID, o ...FilesOption) (*schema.GetFilesResponse, error) {
 		r := new(FilesRequest)
 		for _, f := range o {
 			f(r)
@@ -21,7 +23,7 @@ func NewFilesAPI(t http.RoundTripper) Files {
 	}
 }
 
-type Files func(fileIDs []schema.FileID, o ...func(*FilesRequest)) (*schema.GetFilesResponse, error)
+type Files func(fileIDs []schema.FileID, o ...FilesOption) (*schema.GetFilesResponse, error)
 
 // https://docs.curseforge.com/#get-files
 type FilesRequest struct {
@@ -55,7 +57,7 @@ func (r *FilesRequest) Do(ctx context.Context, t http.RoundTripper) (*http.Respo
 	return t.RoundTrip(req)
 }
 
-func (Files) WithContext(ctx context.Context) func(*FilesRequest) {
+func (Files) WithContext(ctx context.Context) FilesOption {
 	return func(o *FilesRequest) {
 		o.ctx = ctx
 	}

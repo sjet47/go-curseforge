@@ -8,8 +8,10 @@ import (
 	"github.com/ASjet/go-curseforge/schema"
 )
 
+type GetModOption func(*GetModRequest)
+
 func NewGetModAPI(t http.RoundTripper) GetMod {
-	return func(modID schema.ModID, o ...func(*GetModRequest)) (*schema.GetModResponse, error) {
+	return func(modID schema.ModID, o ...GetModOption) (*schema.GetModResponse, error) {
 		r := new(GetModRequest)
 		for _, f := range o {
 			f(r)
@@ -19,7 +21,7 @@ func NewGetModAPI(t http.RoundTripper) GetMod {
 	}
 }
 
-type GetMod func(modID schema.ModID, o ...func(*GetModRequest)) (*schema.GetModResponse, error)
+type GetMod func(modID schema.ModID, o ...GetModOption) (*schema.GetModResponse, error)
 
 // https://docs.curseforge.com/#get-mod
 type GetModRequest struct {
@@ -46,7 +48,7 @@ func (r *GetModRequest) Do(ctx context.Context, t http.RoundTripper) (*http.Resp
 	return t.RoundTrip(req)
 }
 
-func (GetMod) WithContext(ctx context.Context) func(*GetModRequest) {
+func (GetMod) WithContext(ctx context.Context) GetModOption {
 	return func(o *GetModRequest) {
 		o.ctx = ctx
 	}

@@ -10,8 +10,10 @@ import (
 	"github.com/ASjet/go-curseforge/schema/enum"
 )
 
+type ModFilesOption func(*ModFilesRequest)
+
 func NewModFilesAPI(t http.RoundTripper) ModFiles {
-	return func(modID schema.ModID, o ...func(*ModFilesRequest)) (*schema.GetModFilesResponse, error) {
+	return func(modID schema.ModID, o ...ModFilesOption) (*schema.GetModFilesResponse, error) {
 		r := new(ModFilesRequest)
 		for _, f := range o {
 			f(r)
@@ -21,7 +23,7 @@ func NewModFilesAPI(t http.RoundTripper) ModFiles {
 	}
 }
 
-type ModFiles func(modID schema.ModID, o ...func(*ModFilesRequest)) (*schema.GetModFilesResponse, error)
+type ModFiles func(modID schema.ModID, o ...ModFilesOption) (*schema.GetModFilesResponse, error)
 
 // https://docs.curseforge.com/#get-mod-files
 type ModFilesRequest struct {
@@ -78,37 +80,37 @@ func (r *ModFilesRequest) Do(ctx context.Context, t http.RoundTripper) (*http.Re
 	return t.RoundTrip(req)
 }
 
-func (ModFiles) WithContext(ctx context.Context) func(*ModFilesRequest) {
+func (ModFiles) WithContext(ctx context.Context) ModFilesOption {
 	return func(o *ModFilesRequest) {
 		o.ctx = ctx
 	}
 }
 
-func (ModFiles) WithGameVersion(gameVersion enum.GameVersion) func(*ModFilesRequest) {
+func (ModFiles) WithGameVersion(gameVersion enum.GameVersion) ModFilesOption {
 	return func(o *ModFilesRequest) {
 		o.GameVersion = &gameVersion
 	}
 }
 
-func (ModFiles) WithGameVersionTypeID(gameVersionTypeID enum.GameVersionType) func(*ModFilesRequest) {
+func (ModFiles) WithGameVersionTypeID(gameVersionTypeID enum.GameVersionType) ModFilesOption {
 	return func(o *ModFilesRequest) {
 		o.GameVersionTypeID = &gameVersionTypeID
 	}
 }
 
-func (ModFiles) WithModLoader(modLoader enum.ModLoader) func(*ModFilesRequest) {
+func (ModFiles) WithModLoader(modLoader enum.ModLoader) ModFilesOption {
 	return func(o *ModFilesRequest) {
 		o.ModLoader = &modLoader
 	}
 }
 
-func (ModFiles) WithPageNum(pageNum int) func(*ModFilesRequest) {
+func (ModFiles) WithPageNum(pageNum int) ModFilesOption {
 	return func(o *ModFilesRequest) {
 		o.Index = pageNum
 	}
 }
 
-func (ModFiles) WithPageSize(pageSize int) func(*ModFilesRequest) {
+func (ModFiles) WithPageSize(pageSize int) ModFilesOption {
 	return func(o *ModFilesRequest) {
 		o.PageSize = pageSize
 	}

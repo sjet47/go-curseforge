@@ -10,8 +10,10 @@ import (
 	"github.com/ASjet/go-curseforge/schema"
 )
 
+type GetModsOption func(*GetModsRequest)
+
 func NewGetModsAPI(t http.RoundTripper) GetMods {
-	return func(modIDs []schema.ModID, o ...func(*GetModsRequest)) (*schema.GetModsResponse, error) {
+	return func(modIDs []schema.ModID, o ...GetModsOption) (*schema.GetModsResponse, error) {
 		r := new(GetModsRequest)
 		for _, f := range o {
 			f(r)
@@ -21,7 +23,7 @@ func NewGetModsAPI(t http.RoundTripper) GetMods {
 	}
 }
 
-type GetMods func(modIDs []schema.ModID, o ...func(*GetModsRequest)) (*schema.GetModsResponse, error)
+type GetMods func(modIDs []schema.ModID, o ...GetModsOption) (*schema.GetModsResponse, error)
 
 // https://docs.curseforge.com/#get-mods
 type GetModsRequest struct {
@@ -55,13 +57,13 @@ func (r *GetModsRequest) Do(ctx context.Context, t http.RoundTripper) (*http.Res
 	return t.RoundTrip(req)
 }
 
-func (GetMods) WithContext(ctx context.Context) func(*GetModsRequest) {
+func (GetMods) WithContext(ctx context.Context) GetModsOption {
 	return func(o *GetModsRequest) {
 		o.ctx = ctx
 	}
 }
 
-func (GetMods) WithFilterOnlyPC(onlyPC bool) func(*GetModsRequest) {
+func (GetMods) WithFilterOnlyPC(onlyPC bool) GetModsOption {
 	return func(o *GetModsRequest) {
 		o.OnlyPC = onlyPC
 	}

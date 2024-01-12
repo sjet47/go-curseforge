@@ -11,8 +11,10 @@ import (
 	"github.com/ASjet/go-curseforge/schema/enum"
 )
 
+type SearchModOption func(*SearchModRequest)
+
 func NewSearchModAPI(t http.RoundTripper) SearchMod {
-	return func(gameID enum.GameID, o ...func(*SearchModRequest)) (*schema.SearchModsResponse, error) {
+	return func(gameID enum.GameID, o ...SearchModOption) (*schema.SearchModsResponse, error) {
 		r := new(SearchModRequest)
 		for _, f := range o {
 			f(r)
@@ -22,7 +24,7 @@ func NewSearchModAPI(t http.RoundTripper) SearchMod {
 	}
 }
 
-type SearchMod func(gameID enum.GameID, o ...func(*SearchModRequest)) (*schema.SearchModsResponse, error)
+type SearchMod func(gameID enum.GameID, o ...SearchModOption) (*schema.SearchModsResponse, error)
 
 // https://docs.curseforge.com/#search-mods
 type SearchModRequest struct {
@@ -125,26 +127,26 @@ func (r *SearchModRequest) Do(ctx context.Context, t http.RoundTripper) (*http.R
 	return t.RoundTrip(req)
 }
 
-func (SearchMod) WithContext(ctx context.Context) func(*SearchModRequest) {
+func (SearchMod) WithContext(ctx context.Context) SearchModOption {
 	return func(r *SearchModRequest) {
 		r.ctx = ctx
 	}
 }
 
-func (SearchMod) WithClassID(classID enum.ClassID) func(*SearchModRequest) {
+func (SearchMod) WithClassID(classID enum.ClassID) SearchModOption {
 	return func(r *SearchModRequest) {
 		r.ClassID = &classID
 	}
 }
 
-func (SearchMod) WithCategoryID(categoryID enum.CategoryID) func(*SearchModRequest) {
+func (SearchMod) WithCategoryID(categoryID enum.CategoryID) SearchModOption {
 	return func(r *SearchModRequest) {
 		r.CategoryID = &categoryID
 	}
 }
 
 // NOTE: The maximum allowed category ids per query is 10
-func (SearchMod) WithCategoryIDs(categoryIDs ...enum.CategoryID) func(*SearchModRequest) {
+func (SearchMod) WithCategoryIDs(categoryIDs ...enum.CategoryID) SearchModOption {
 	if len(categoryIDs) > 10 {
 		categoryIDs = categoryIDs[:10]
 	}
@@ -158,14 +160,14 @@ func (SearchMod) WithCategoryIDs(categoryIDs ...enum.CategoryID) func(*SearchMod
 	}
 }
 
-func (SearchMod) WithGameVersion(gameVersion enum.GameVersion) func(*SearchModRequest) {
+func (SearchMod) WithGameVersion(gameVersion enum.GameVersion) SearchModOption {
 	return func(r *SearchModRequest) {
 		r.GameVersion = &gameVersion
 	}
 }
 
 // NOTE: The maximum allowed game versions per query is 4
-func (SearchMod) WithGameVersions(gameVersion ...string) func(*SearchModRequest) {
+func (SearchMod) WithGameVersions(gameVersion ...string) SearchModOption {
 	if len(gameVersion) > 4 {
 		gameVersion = gameVersion[:4]
 	}
@@ -178,32 +180,32 @@ func (SearchMod) WithGameVersions(gameVersion ...string) func(*SearchModRequest)
 	}
 }
 
-func (SearchMod) WithSearchFilter(searchFilter string) func(*SearchModRequest) {
+func (SearchMod) WithSearchFilter(searchFilter string) SearchModOption {
 	return func(r *SearchModRequest) {
 		r.SearchFilter = &searchFilter
 	}
 }
 
-func (SearchMod) WithSortField(sortField enum.ModsSearchSortField) func(*SearchModRequest) {
+func (SearchMod) WithSortField(sortField enum.ModsSearchSortField) SearchModOption {
 	return func(r *SearchModRequest) {
 		r.SortField = &sortField
 	}
 }
 
-func (SearchMod) WithSortOrder(sortOrder enum.SortOrder) func(*SearchModRequest) {
+func (SearchMod) WithSortOrder(sortOrder enum.SortOrder) SearchModOption {
 	return func(r *SearchModRequest) {
 		r.SortOrder = &sortOrder
 	}
 }
 
-func (SearchMod) WithModLoaderType(modLoaderType enum.ModLoader) func(*SearchModRequest) {
+func (SearchMod) WithModLoaderType(modLoaderType enum.ModLoader) SearchModOption {
 	return func(r *SearchModRequest) {
 		r.ModLoaderType = &modLoaderType
 	}
 }
 
 // NOTE: The maximum allowed mod loader types per query is 5
-func (SearchMod) WithModLoaderTypes(modLoaderType ...enum.ModLoader) func(*SearchModRequest) {
+func (SearchMod) WithModLoaderTypes(modLoaderType ...enum.ModLoader) SearchModOption {
 	if len(modLoaderType) > 5 {
 		modLoaderType = modLoaderType[:5]
 	}
@@ -217,37 +219,37 @@ func (SearchMod) WithModLoaderTypes(modLoaderType ...enum.ModLoader) func(*Searc
 	}
 }
 
-func (SearchMod) WithGameVersionTypeID(gameVersionTypeID enum.GameVersionType) func(*SearchModRequest) {
+func (SearchMod) WithGameVersionTypeID(gameVersionTypeID enum.GameVersionType) SearchModOption {
 	return func(r *SearchModRequest) {
 		r.GameVersionTypeID = &gameVersionTypeID
 	}
 }
 
-func (SearchMod) WithAuthorID(authorID schema.AuthorID) func(*SearchModRequest) {
+func (SearchMod) WithAuthorID(authorID schema.AuthorID) SearchModOption {
 	return func(r *SearchModRequest) {
 		r.AuthorID = &authorID
 	}
 }
 
-func (SearchMod) WithPrimaryAuthorID(primaryAuthorID schema.AuthorID) func(*SearchModRequest) {
+func (SearchMod) WithPrimaryAuthorID(primaryAuthorID schema.AuthorID) SearchModOption {
 	return func(r *SearchModRequest) {
 		r.PrimaryAuthorID = &primaryAuthorID
 	}
 }
 
-func (SearchMod) WithSlug(slug string) func(*SearchModRequest) {
+func (SearchMod) WithSlug(slug string) SearchModOption {
 	return func(r *SearchModRequest) {
 		r.Slug = &slug
 	}
 }
 
-func (SearchMod) WithIndex(index int) func(*SearchModRequest) {
+func (SearchMod) WithIndex(index int) SearchModOption {
 	return func(r *SearchModRequest) {
 		r.Index = index
 	}
 }
 
-func (SearchMod) WithPageSize(pageSize int) func(*SearchModRequest) {
+func (SearchMod) WithPageSize(pageSize int) SearchModOption {
 	return func(r *SearchModRequest) {
 		r.PageSize = pageSize
 	}
