@@ -6,4 +6,4 @@
 
 - [x] 🔥 `Mods` APIs
 - [ ] 📒 API Document
-- [ ] ⚙️ Typed response
+- [x] ⚙️ Typed response
