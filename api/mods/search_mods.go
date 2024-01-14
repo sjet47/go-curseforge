@@ -45,7 +45,7 @@ type SearchModRequest struct {
 	AuthorID          *schema.AuthorID
 	PrimaryAuthorID   *schema.AuthorID
 	Slug              *string
-	Index             int // Page number
+	Index             int // Not page number!
 	PageSize          int
 }
 

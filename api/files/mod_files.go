@@ -33,7 +33,7 @@ type ModFilesRequest struct {
 	GameVersion       *enum.GameVersion
 	GameVersionTypeID *enum.GameVersionType
 	ModLoader         *enum.ModLoader
-	Index             int // Page number
+	Index             int // Not page number!
 	PageSize          int
 }
 
@@ -104,9 +104,9 @@ func (ModFiles) WithModLoader(modLoader enum.ModLoader) ModFilesOption {
 	}
 }
 
-func (ModFiles) WithPageNum(pageNum int) ModFilesOption {
+func (ModFiles) WithIndex(index int) ModFilesOption {
 	return func(o *ModFilesRequest) {
-		o.Index = pageNum
+		o.Index = index
 	}
 }
 
