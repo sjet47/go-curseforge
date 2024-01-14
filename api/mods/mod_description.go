@@ -9,11 +9,11 @@ import (
 	"github.com/ASjet/go-curseforge/schema"
 )
 
-type GetModDescriptionOption func(*GetModDescriptionRequest)
+type ModDescriptionOption func(*ModDescriptionRequest)
 
-func NewGetModDescriptionAPI(t http.RoundTripper) GetModDescription {
-	return func(modID schema.ModID, o ...GetModDescriptionOption) (*schema.StringResponse, error) {
-		r := new(GetModDescriptionRequest)
+func NewModDescriptionAPI(t http.RoundTripper) ModDescription {
+	return func(modID schema.ModID, o ...ModDescriptionOption) (*schema.StringResponse, error) {
+		r := new(ModDescriptionRequest)
 		for _, f := range o {
 			f(r)
 		}
@@ -22,10 +22,10 @@ func NewGetModDescriptionAPI(t http.RoundTripper) GetModDescription {
 	}
 }
 
-type GetModDescription func(modID schema.ModID, o ...GetModDescriptionOption) (*schema.StringResponse, error)
+type ModDescription func(modID schema.ModID, o ...ModDescriptionOption) (*schema.StringResponse, error)
 
 // https://docs.curseforge.com/#get-mod-description
-type GetModDescriptionRequest struct {
+type ModDescriptionRequest struct {
 	ctx context.Context
 
 	ModID    schema.ModID
@@ -34,7 +34,7 @@ type GetModDescriptionRequest struct {
 	Markup   *bool
 }
 
-func (r *GetModDescriptionRequest) Do(ctx context.Context, t http.RoundTripper) (*http.Response, error) {
+func (r *ModDescriptionRequest) Do(ctx context.Context, t http.RoundTripper) (*http.Response, error) {
 	var (
 		method = http.MethodGet
 		params = make(map[string]string)
@@ -63,26 +63,26 @@ func (r *GetModDescriptionRequest) Do(ctx context.Context, t http.RoundTripper) 
 	return t.RoundTrip(req)
 }
 
-func (GetModDescription) WithContext(ctx context.Context) GetModDescriptionOption {
-	return func(o *GetModDescriptionRequest) {
+func (ModDescription) WithContext(ctx context.Context) ModDescriptionOption {
+	return func(o *ModDescriptionRequest) {
 		o.ctx = ctx
 	}
 }
 
-func (GetModDescription) WithRawContent(raw bool) GetModDescriptionOption {
-	return func(o *GetModDescriptionRequest) {
+func (ModDescription) WithRawContent(raw bool) ModDescriptionOption {
+	return func(o *ModDescriptionRequest) {
 		o.Raw = &raw
 	}
 }
 
-func (GetModDescription) WithStrippedContent(stripped bool) GetModDescriptionOption {
-	return func(o *GetModDescriptionRequest) {
+func (ModDescription) WithStrippedContent(stripped bool) ModDescriptionOption {
+	return func(o *ModDescriptionRequest) {
 		o.Stripped = &stripped
 	}
 }
 
-func (GetModDescription) WithMarkupContent(markup bool) GetModDescriptionOption {
-	return func(o *GetModDescriptionRequest) {
+func (ModDescription) WithMarkupContent(markup bool) ModDescriptionOption {
+	return func(o *ModDescriptionRequest) {
 		o.Markup = &markup
 	}
 }

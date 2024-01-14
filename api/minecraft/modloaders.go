@@ -10,11 +10,11 @@ import (
 	"github.com/ASjet/go-curseforge/schema/enum"
 )
 
-type GetModLoadersOption func(*GetModLoadersRequest)
+type ModLoadersOption func(*ModLoadersRequest)
 
-func NewGetModLoadersAPI(t http.RoundTripper) GetModLoaders {
-	return func(o ...GetModLoadersOption) (*schema.ApiResponseOfListOfMinecraftModLoaderIndex, error) {
-		r := new(GetModLoadersRequest)
+func NewModLoadersAPI(t http.RoundTripper) ModLoaders {
+	return func(o ...ModLoadersOption) (*schema.ApiResponseOfListOfMinecraftModLoaderIndex, error) {
+		r := new(ModLoadersRequest)
 		for _, f := range o {
 			f(r)
 		}
@@ -22,17 +22,17 @@ func NewGetModLoadersAPI(t http.RoundTripper) GetModLoaders {
 	}
 }
 
-type GetModLoaders func(o ...GetModLoadersOption) (*schema.ApiResponseOfListOfMinecraftModLoaderIndex, error)
+type ModLoaders func(o ...ModLoadersOption) (*schema.ApiResponseOfListOfMinecraftModLoaderIndex, error)
 
 // https://docs.curseforge.com/#get-minecraft-modloaders
-type GetModLoadersRequest struct {
+type ModLoadersRequest struct {
 	ctx context.Context
 
 	GameVersion *enum.GameVersion
 	IncludeAll  *bool
 }
 
-func (r *GetModLoadersRequest) Do(ctx context.Context, t http.RoundTripper) (*http.Response, error) {
+func (r *ModLoadersRequest) Do(ctx context.Context, t http.RoundTripper) (*http.Response, error) {
 	var (
 		method = http.MethodGet
 		params = make(map[string]string)
@@ -66,20 +66,20 @@ func (r *GetModLoadersRequest) Do(ctx context.Context, t http.RoundTripper) (*ht
 	return t.RoundTrip(req)
 }
 
-func (GetModLoaders) WithContext(ctx context.Context) GetModLoadersOption {
-	return func(o *GetModLoadersRequest) {
+func (ModLoaders) WithContext(ctx context.Context) ModLoadersOption {
+	return func(o *ModLoadersRequest) {
 		o.ctx = ctx
 	}
 }
 
-func (GetModLoaders) WithGameVersion(gameVersion enum.GameVersion) GetModLoadersOption {
-	return func(o *GetModLoadersRequest) {
+func (ModLoaders) WithGameVersion(gameVersion enum.GameVersion) ModLoadersOption {
+	return func(o *ModLoadersRequest) {
 		o.GameVersion = &gameVersion
 	}
 }
 
-func (GetModLoaders) WithIncludeAll(includeAll bool) GetModLoadersOption {
-	return func(o *GetModLoadersRequest) {
+func (ModLoaders) WithIncludeAll(includeAll bool) ModLoadersOption {
+	return func(o *ModLoadersRequest) {
 		o.IncludeAll = &includeAll
 	}
 }

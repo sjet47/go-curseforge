@@ -9,11 +9,11 @@ import (
 	"github.com/ASjet/go-curseforge/schema"
 )
 
-type GetMinecraftVersionsOption func(*GetMinecraftVersionsRequest)
+type MinecraftVersionsOption func(*MinecraftVersionsRequest)
 
-func NewGetMinecraftVersionsAPI(t http.RoundTripper) GetMinecraftVersions {
-	return func(o ...GetMinecraftVersionsOption) (*schema.ApiResponseOfListOfMinecraftGameVersion, error) {
-		r := new(GetMinecraftVersionsRequest)
+func NewMinecraftVersionsAPI(t http.RoundTripper) MinecraftVersions {
+	return func(o ...MinecraftVersionsOption) (*schema.ApiResponseOfListOfMinecraftGameVersion, error) {
+		r := new(MinecraftVersionsRequest)
 		for _, f := range o {
 			f(r)
 		}
@@ -21,16 +21,16 @@ func NewGetMinecraftVersionsAPI(t http.RoundTripper) GetMinecraftVersions {
 	}
 }
 
-type GetMinecraftVersions func(o ...GetMinecraftVersionsOption) (*schema.ApiResponseOfListOfMinecraftGameVersion, error)
+type MinecraftVersions func(o ...MinecraftVersionsOption) (*schema.ApiResponseOfListOfMinecraftGameVersion, error)
 
 // https://docs.curseforge.com/#get-minecraft-versions
-type GetMinecraftVersionsRequest struct {
+type MinecraftVersionsRequest struct {
 	ctx context.Context
 
 	SortDescending *bool
 }
 
-func (r *GetMinecraftVersionsRequest) Do(ctx context.Context, t http.RoundTripper) (*http.Response, error) {
+func (r *MinecraftVersionsRequest) Do(ctx context.Context, t http.RoundTripper) (*http.Response, error) {
 	var (
 		method = http.MethodGet
 		params = make(map[string]string)
@@ -61,14 +61,14 @@ func (r *GetMinecraftVersionsRequest) Do(ctx context.Context, t http.RoundTrippe
 	return t.RoundTrip(req)
 }
 
-func (GetMinecraftVersions) WithContext(ctx context.Context) GetMinecraftVersionsOption {
-	return func(o *GetMinecraftVersionsRequest) {
+func (MinecraftVersions) WithContext(ctx context.Context) MinecraftVersionsOption {
+	return func(o *MinecraftVersionsRequest) {
 		o.ctx = ctx
 	}
 }
 
-func (GetMinecraftVersions) WithSortDescending(isDescending bool) GetMinecraftVersionsOption {
-	return func(o *GetMinecraftVersionsRequest) {
+func (MinecraftVersions) WithSortDescending(isDescending bool) MinecraftVersionsOption {
+	return func(o *MinecraftVersionsRequest) {
 		o.SortDescending = &isDescending
 	}
 }

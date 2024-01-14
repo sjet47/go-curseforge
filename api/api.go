@@ -10,10 +10,10 @@ import (
 
 type API struct {
 	mods.SearchMod
-	mods.GetMod
-	mods.GetMods
-	mods.GetFeaturedMods
-	mods.GetModDescription
+	mods.Mod
+	mods.Mods
+	mods.FeaturedMods
+	mods.ModDescription
 
 	files.ModFile
 	files.ModFiles
@@ -21,19 +21,19 @@ type API struct {
 	files.ModFileChangelog
 	files.ModFileUrl
 
-	minecraft.GetMinecraftVersions
-	minecraft.GetMinecraftVersion
-	minecraft.GetModLoaders
-	minecraft.GetModLoader
+	minecraft.MinecraftVersions
+	minecraft.MinecraftVersion
+	minecraft.ModLoaders
+	minecraft.ModLoader
 }
 
 func New(t http.RoundTripper) *API {
 	return &API{
-		SearchMod:         mods.NewSearchModAPI(t),
-		GetMod:            mods.NewGetModAPI(t),
-		GetMods:           mods.NewGetModsAPI(t),
-		GetFeaturedMods:   mods.NewGetFeaturedModsAPI(t),
-		GetModDescription: mods.NewGetModDescriptionAPI(t),
+		SearchMod:      mods.NewSearchModAPI(t),
+		Mod:            mods.NewModAPI(t),
+		Mods:           mods.NewModsAPI(t),
+		FeaturedMods:   mods.NewFeaturedModsAPI(t),
+		ModDescription: mods.NewModDescriptionAPI(t),
 
 		ModFile:          files.NewModFileAPI(t),
 		ModFiles:         files.NewModFilesAPI(t),
@@ -41,9 +41,9 @@ func New(t http.RoundTripper) *API {
 		ModFileChangelog: files.NewModFileChangelogAPI(t),
 		ModFileUrl:       files.NewModFileUrlAPI(t),
 
-		GetMinecraftVersions: minecraft.NewGetMinecraftVersionsAPI(t),
-		GetMinecraftVersion:  minecraft.NewGetMinecraftVersionAPI(t),
-		GetModLoaders:        minecraft.NewGetModLoadersAPI(t),
-		GetModLoader:         minecraft.NewGetModLoaderAPI(t),
+		MinecraftVersions: minecraft.NewMinecraftVersionsAPI(t),
+		MinecraftVersion:  minecraft.NewMinecraftVersionAPI(t),
+		ModLoaders:        minecraft.NewModLoadersAPI(t),
+		ModLoader:         minecraft.NewModLoaderAPI(t),
 	}
 }

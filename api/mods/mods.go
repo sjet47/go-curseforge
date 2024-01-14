@@ -10,11 +10,11 @@ import (
 	"github.com/ASjet/go-curseforge/schema"
 )
 
-type GetModsOption func(*GetModsRequest)
+type ModsOption func(*ModsRequest)
 
-func NewGetModsAPI(t http.RoundTripper) GetMods {
-	return func(modIDs []schema.ModID, o ...GetModsOption) (*schema.GetModsResponse, error) {
-		r := new(GetModsRequest)
+func NewModsAPI(t http.RoundTripper) Mods {
+	return func(modIDs []schema.ModID, o ...ModsOption) (*schema.GetModsResponse, error) {
+		r := new(ModsRequest)
 		for _, f := range o {
 			f(r)
 		}
@@ -23,16 +23,16 @@ func NewGetModsAPI(t http.RoundTripper) GetMods {
 	}
 }
 
-type GetMods func(modIDs []schema.ModID, o ...GetModsOption) (*schema.GetModsResponse, error)
+type Mods func(modIDs []schema.ModID, o ...ModsOption) (*schema.GetModsResponse, error)
 
 // https://docs.curseforge.com/#get-mods
-type GetModsRequest struct {
+type ModsRequest struct {
 	ctx context.Context
 
 	schema.GetModsByIdsListRequestBody
 }
 
-func (r *GetModsRequest) Do(ctx context.Context, t http.RoundTripper) (*http.Response, error) {
+func (r *ModsRequest) Do(ctx context.Context, t http.RoundTripper) (*http.Response, error) {
 	var (
 		method = http.MethodPost
 		path   = fmt.Sprintf("%s/v1/mods", schema.BaseUrl)
@@ -57,14 +57,14 @@ func (r *GetModsRequest) Do(ctx context.Context, t http.RoundTripper) (*http.Res
 	return t.RoundTrip(req)
 }
 
-func (GetMods) WithContext(ctx context.Context) GetModsOption {
-	return func(o *GetModsRequest) {
+func (Mods) WithContext(ctx context.Context) ModsOption {
+	return func(o *ModsRequest) {
 		o.ctx = ctx
 	}
 }
 
-func (GetMods) WithFilterOnlyPC(onlyPC bool) GetModsOption {
-	return func(o *GetModsRequest) {
+func (Mods) WithFilterOnlyPC(onlyPC bool) ModsOption {
+	return func(o *ModsRequest) {
 		o.OnlyPC = onlyPC
 	}
 }

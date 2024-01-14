@@ -11,11 +11,11 @@ import (
 	"github.com/ASjet/go-curseforge/schema/enum"
 )
 
-type GetFeaturedModsOption func(*GetFeaturedModsRequest)
+type FeaturedModsOption func(*FeaturedModsRequest)
 
-func NewGetFeaturedModsAPI(t http.RoundTripper) GetFeaturedMods {
-	return func(gameID enum.GameID, o ...GetFeaturedModsOption) (*schema.GetFeaturedModsRequestBody, error) {
-		r := new(GetFeaturedModsRequest)
+func NewFeaturedModsAPI(t http.RoundTripper) FeaturedMods {
+	return func(gameID enum.GameID, o ...FeaturedModsOption) (*schema.GetFeaturedModsRequestBody, error) {
+		r := new(FeaturedModsRequest)
 		for _, f := range o {
 			f(r)
 		}
@@ -24,16 +24,16 @@ func NewGetFeaturedModsAPI(t http.RoundTripper) GetFeaturedMods {
 	}
 }
 
-type GetFeaturedMods func(gameID enum.GameID, o ...GetFeaturedModsOption) (*schema.GetFeaturedModsRequestBody, error)
+type FeaturedMods func(gameID enum.GameID, o ...FeaturedModsOption) (*schema.GetFeaturedModsRequestBody, error)
 
 // https://docs.curseforge.com/#get-featured-mods
-type GetFeaturedModsRequest struct {
+type FeaturedModsRequest struct {
 	ctx context.Context
 
 	schema.GetFeaturedModsRequestBody
 }
 
-func (r *GetFeaturedModsRequest) Do(ctx context.Context, t http.RoundTripper) (*http.Response, error) {
+func (r *FeaturedModsRequest) Do(ctx context.Context, t http.RoundTripper) (*http.Response, error) {
 	var (
 		method = http.MethodPost
 		path   = fmt.Sprintf("%s/v1/mods/featured", schema.BaseUrl)
@@ -58,20 +58,20 @@ func (r *GetFeaturedModsRequest) Do(ctx context.Context, t http.RoundTripper) (*
 	return t.RoundTrip(req)
 }
 
-func (GetFeaturedMods) WithContext(ctx context.Context) GetFeaturedModsOption {
-	return func(o *GetFeaturedModsRequest) {
+func (FeaturedMods) WithContext(ctx context.Context) FeaturedModsOption {
+	return func(o *FeaturedModsRequest) {
 		o.ctx = ctx
 	}
 }
 
-func (GetFeaturedMods) WithExcludedModIDs(modID ...schema.ModID) GetFeaturedModsOption {
-	return func(o *GetFeaturedModsRequest) {
+func (FeaturedMods) WithExcludedModIDs(modID ...schema.ModID) FeaturedModsOption {
+	return func(o *FeaturedModsRequest) {
 		o.ExcludedModIDs = modID
 	}
 }
 
-func (GetFeaturedMods) WithGameVersionTypeID(gameVersionTypeID enum.GameVersionType) GetFeaturedModsOption {
-	return func(o *GetFeaturedModsRequest) {
+func (FeaturedMods) WithGameVersionTypeID(gameVersionTypeID enum.GameVersionType) FeaturedModsOption {
+	return func(o *FeaturedModsRequest) {
 		o.GameVersionTypeID = gameVersionTypeID
 	}
 }

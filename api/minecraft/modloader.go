@@ -8,11 +8,11 @@ import (
 	"github.com/ASjet/go-curseforge/schema"
 )
 
-type GetModLoaderOption func(*GetModLoaderRequest)
+type ModLoaderOption func(*ModLoaderRequest)
 
-func NewGetModLoaderAPI(t http.RoundTripper) GetModLoader {
-	return func(modLoaderName string, o ...GetModLoaderOption) (*schema.ApiResponseOfMinecraftModLoaderVersion, error) {
-		r := new(GetModLoaderRequest)
+func NewModLoaderAPI(t http.RoundTripper) ModLoader {
+	return func(modLoaderName string, o ...ModLoaderOption) (*schema.ApiResponseOfMinecraftModLoaderVersion, error) {
+		r := new(ModLoaderRequest)
 		for _, f := range o {
 			f(r)
 		}
@@ -21,16 +21,16 @@ func NewGetModLoaderAPI(t http.RoundTripper) GetModLoader {
 	}
 }
 
-type GetModLoader func(modLoaderName string, o ...GetModLoaderOption) (*schema.ApiResponseOfMinecraftModLoaderVersion, error)
+type ModLoader func(modLoaderName string, o ...ModLoaderOption) (*schema.ApiResponseOfMinecraftModLoaderVersion, error)
 
 // https://docs.curseforge.com/#get-specific-minecraft-modloader
-type GetModLoaderRequest struct {
+type ModLoaderRequest struct {
 	ctx context.Context
 
 	ModLoaderName string
 }
 
-func (r *GetModLoaderRequest) Do(ctx context.Context, t http.RoundTripper) (*http.Response, error) {
+func (r *ModLoaderRequest) Do(ctx context.Context, t http.RoundTripper) (*http.Response, error) {
 	var (
 		method = http.MethodGet
 		path   = fmt.Sprintf("%s/v1/minecraft/modloader/%s", schema.BaseUrl, r.ModLoaderName)
@@ -48,8 +48,8 @@ func (r *GetModLoaderRequest) Do(ctx context.Context, t http.RoundTripper) (*htt
 	return t.RoundTrip(req)
 }
 
-func (GetModLoader) WithContext(ctx context.Context) GetModLoaderOption {
-	return func(o *GetModLoaderRequest) {
+func (ModLoader) WithContext(ctx context.Context) ModLoaderOption {
+	return func(o *ModLoaderRequest) {
 		o.ctx = ctx
 	}
 }
