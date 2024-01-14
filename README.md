@@ -6,14 +6,6 @@
 
 ## Supported API
 
-### Games
-
-Currently not supported
-
-### Categories
-
-Currently not supported
-
 ### Mods
 
 - [x] Search Mods
@@ -30,13 +22,21 @@ Currently not supported
 - [x] Get Mod File Changelog
 - [x] Get Mod File Download URL
 
-### Fingerprints
-
-Currently not supported
-
 ### Minecraft
 
 - [x] Get Minecraft Versions
 - [x] Get Specific Minecraft Version
 - [x] Get Minecraft ModLoaders
 - [x] Get Specific Minecraft ModLoader
+
+### Games
+
+Currently not supported
+
+### Categories
+
+Currently not supported
+
+### Fingerprints
+
+Currently not supported
