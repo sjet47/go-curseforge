@@ -65,3 +65,23 @@ type GetModFilesResponse struct {
 type GetFilesResponse struct {
 	Data []File `json:"data"`
 }
+
+// https://docs.curseforge.com/#tocS_ApiResponseOfListOfMinecraftGameVersion
+type ApiResponseOfListOfMinecraftGameVersion struct {
+	Date []MinecraftGameVersion `json:"data"`
+}
+
+// https://docs.curseforge.com/#tocS_ApiResponseOfMinecraftGameVersion
+type ApiResponseOfMinecraftGameVersion struct {
+	Data MinecraftGameVersion `json:"data"`
+}
+
+// https://docs.curseforge.com/#tocS_ApiResponseOfListOfMinecraftModLoaderIndex
+type ApiResponseOfListOfMinecraftModLoaderIndex struct {
+	Data []MinecraftModLoaderIndex `json:"data"`
+}
+
+// https://docs.curseforge.com/#tocS_ApiResponseOfMinecraftModLoaderVersion
+type ApiResponseOfMinecraftModLoaderVersion struct {
+	Data MinecraftModLoaderVersion `json:"data"`
+}
