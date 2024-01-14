@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/ASjet/go-curseforge/api/files"
+	"github.com/ASjet/go-curseforge/api/minecraft"
 	"github.com/ASjet/go-curseforge/api/mods"
 )
 
@@ -19,6 +20,11 @@ type API struct {
 	files.Files
 	files.ModFileChangelog
 	files.ModFileUrl
+
+	minecraft.GetMinecraftVersions
+	minecraft.GetMinecraftVersion
+	minecraft.GetModLoaders
+	minecraft.GetModLoader
 }
 
 func New(t http.RoundTripper) *API {
@@ -34,5 +40,10 @@ func New(t http.RoundTripper) *API {
 		Files:            files.NewFilesAPI(t),
 		ModFileChangelog: files.NewModFileChangelogAPI(t),
 		ModFileUrl:       files.NewModFileUrlAPI(t),
+
+		GetMinecraftVersions: minecraft.NewGetMinecraftVersionsAPI(t),
+		GetMinecraftVersion:  minecraft.NewGetMinecraftVersionAPI(t),
+		GetModLoaders:        minecraft.NewGetModLoadersAPI(t),
+		GetModLoader:         minecraft.NewGetModLoaderAPI(t),
 	}
 }
