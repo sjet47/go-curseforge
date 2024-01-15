@@ -22,7 +22,7 @@ type File struct {
 	DownloadCount        int64                 `json:"downloadCount"`
 	FileSizeOnDisk       int64                 `json:"fileSizeOnDisk"`
 	DownloadURL          string                `json:"downloadUrl"`
-	GameVersions         []enum.GameVersion    `json:"gameVersions"`
+	GameVersions         []GameVersionStr      `json:"gameVersions"`
 	SortableGameVersions []SortableGameVersion `json:"sortableGameVersions"`
 	Dependencies         []FileDependency      `json:"dependencies"`
 	ExposeAsAlternative  bool                  `json:"exposeAsAlternative"`
@@ -50,12 +50,12 @@ type FileHash struct {
 
 // https://docs.curseforge.com/#tocS_FileIndex
 type FileIndex struct {
-	GameVersion       enum.GameVersion       `json:"gameVersion"`
-	FileID            FileID                 `json:"fileId"`
-	FileName          string                 `json:"fileName"`
-	ReleaseType       enum.FileReleaseType   `json:"releaseType"`
-	GameVersionTypeID enum.GameVersionTypeID `json:"gameVersionTypeId"`
-	ModLoader         enum.ModLoader         `json:"modLoader"`
+	GameVersion       GameVersionStr       `json:"gameVersion"`
+	FileID            FileID               `json:"fileId"`
+	FileName          string               `json:"fileName"`
+	ReleaseType       enum.FileReleaseType `json:"releaseType"`
+	GameVersionTypeID GameVersionTypeID    `json:"gameVersionTypeId"`
+	ModLoader         enum.ModLoader       `json:"modLoader"`
 }
 
 // https://docs.curseforge.com/#tocS_FileModule

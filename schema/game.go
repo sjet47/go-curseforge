@@ -8,11 +8,11 @@ import (
 
 // https://docs.curseforge.com/#tocS_SortableGameVersion
 type SortableGameVersion struct {
-	GameVersionName        string                 `json:"gameVersionName"`
-	GameVersionPadded      string                 `json:"gameVersionPadded"`
-	GameVersion            enum.GameVersion       `json:"gameVersion"`
-	GameVersionReleaseDate time.Time              `json:"gameVersionReleaseDate"`
-	GameVersionTypeID      enum.GameVersionTypeID `json:"gameVersionTypeId"`
+	GameVersionName        string            `json:"gameVersionName"`
+	GameVersionPadded      string            `json:"gameVersionPadded"`
+	GameVersion            GameVersionStr    `json:"gameVersion"`
+	GameVersionReleaseDate time.Time         `json:"gameVersionReleaseDate"`
+	GameVersionTypeID      GameVersionTypeID `json:"gameVersionTypeId"`
 }
 
 // https://docs.curseforge.com/#tocS_Game
@@ -42,19 +42,19 @@ type GameVersion struct {
 
 // https://docs.curseforge.com/#tocS_GameVersionsByType
 type GameVersionsByType struct {
-	Type     enum.GameVersionTypeID `json:"type"`
-	Versions []string               `json:"versions"`
+	Type     GameVersionTypeID `json:"type"`
+	Versions []string          `json:"versions"`
 }
 
 // https://docs.curseforge.com/#tocS_GameVersionsByType2
 type GameVersionsByType2 struct {
-	Type     enum.GameVersionTypeID `json:"type"`
-	Versions []GameVersion          `json:"versions"`
+	Type     GameVersionTypeID `json:"type"`
+	Versions []GameVersion     `json:"versions"`
 }
 
 // https://docs.curseforge.com/#tocS_GameVersionType
 type GameVersionType struct {
-	ID         enum.GameVersionTypeID     `json:"id"`
+	ID         GameVersionTypeID          `json:"id"`
 	GameID     enum.GameID                `json:"gameId"`
 	Name       string                     `json:"name"`
 	Slug       string                     `json:"slug"`
