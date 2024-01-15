@@ -3,8 +3,8 @@ package enum
 import "strconv"
 
 // https://docs.curseforge.com/#tocS_GameVersionType
-type GameVersionType int
+type GameVersionTypeID int
 
-func (g GameVersionType) Param() string {
+func (g GameVersionTypeID) Param() string {
 	return strconv.Itoa(int(g))
 }

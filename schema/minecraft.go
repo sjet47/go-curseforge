@@ -15,7 +15,7 @@ type MinecraftGameVersion struct {
 	JsonDownloadURL       string                     `json:"jsonDownloadUrl"`
 	Approved              bool                       `json:"approved"`
 	DateModified          time.Time                  `json:"dateModified"`
-	GameVersionTypeID     enum.GameVersionType       `json:"gameVersionTypeId"`
+	GameVersionTypeID     enum.GameVersionTypeID     `json:"gameVersionTypeId"`
 	GameVersionStatus     enum.GameVersionStatus     `json:"gameVersionStatus"`
 	GameVersionTypeStatus enum.GameVersionTypeStatus `json:"gameVersionTypeStatus"`
 }
@@ -51,11 +51,11 @@ type MinecraftModLoaderVersion struct {
 	MinecraftVersion               enum.GameVersion            `json:"minecraftVersion"`
 	AdditionalFilesJson            string                      `json:"additionalFilesJson"`
 	ModLoaderGameVersionID         GameVersionID               `json:"modLoaderGameVersionId"`
-	ModLoaderGameVersionTypeID     enum.GameVersionType        `json:"modLoaderGameVersionTypeId"`
+	ModLoaderGameVersionTypeID     enum.GameVersionTypeID      `json:"modLoaderGameVersionTypeId"`
 	ModLoaderGameVersionStatus     enum.GameVersionStatus      `json:"modLoaderGameVersionStatus"`
 	ModLoaderGameVersionTypeStatus enum.GameVersionTypeStatus  `json:"modLoaderGameVersionTypeStatus"`
 	McGameVersionID                MinecraftGameVersionID      `json:"mcGameVersionId"`
-	McGameVersionTypeID            enum.GameVersionType        `json:"mcGameVersionTypeId"`
+	McGameVersionTypeID            enum.GameVersionTypeID      `json:"mcGameVersionTypeId"`
 	McGameVersionStatus            enum.GameVersionStatus      `json:"mcGameVersionStatus"`
 	McGameVersionTypeStatus        enum.GameVersionTypeStatus  `json:"mcGameVersionTypeStatus"`
 	InstallProfileJson             string                      `json:"installProfileJson"`

@@ -31,7 +31,7 @@ type ModFilesRequest struct {
 
 	ModID             schema.ModID
 	GameVersion       *enum.GameVersion
-	GameVersionTypeID *enum.GameVersionType
+	GameVersionTypeID *enum.GameVersionTypeID
 	ModLoader         *enum.ModLoader
 	Index             int // Not page number!
 	PageSize          int
@@ -92,7 +92,7 @@ func (ModFiles) WithGameVersion(gameVersion enum.GameVersion) ModFilesOption {
 	}
 }
 
-func (ModFiles) WithGameVersionTypeID(gameVersionTypeID enum.GameVersionType) ModFilesOption {
+func (ModFiles) WithGameVersionTypeID(gameVersionTypeID enum.GameVersionTypeID) ModFilesOption {
 	return func(o *ModFilesRequest) {
 		o.GameVersionTypeID = &gameVersionTypeID
 	}

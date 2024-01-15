@@ -50,12 +50,12 @@ type FileHash struct {
 
 // https://docs.curseforge.com/#tocS_FileIndex
 type FileIndex struct {
-	GameVersion       enum.GameVersion     `json:"gameVersion"`
-	FileID            FileID               `json:"fileId"`
-	FileName          string               `json:"fileName"`
-	ReleaseType       enum.FileReleaseType `json:"releaseType"`
-	GameVersionTypeID enum.GameVersionType `json:"gameVersionTypeId"`
-	ModLoader         enum.ModLoader       `json:"modLoader"`
+	GameVersion       enum.GameVersion       `json:"gameVersion"`
+	FileID            FileID                 `json:"fileId"`
+	FileName          string                 `json:"fileName"`
+	ReleaseType       enum.FileReleaseType   `json:"releaseType"`
+	GameVersionTypeID enum.GameVersionTypeID `json:"gameVersionTypeId"`
+	ModLoader         enum.ModLoader         `json:"modLoader"`
 }
 
 // https://docs.curseforge.com/#tocS_FileModule
