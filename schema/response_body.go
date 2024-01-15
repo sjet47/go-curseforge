@@ -85,3 +85,29 @@ type ApiResponseOfListOfMinecraftModLoaderIndex struct {
 type ApiResponseOfMinecraftModLoaderVersion struct {
 	Data MinecraftModLoaderVersion `json:"data"`
 }
+
+// https://docs.curseforge.com/#tocS_Get%20Game%20Response
+type GetGamesResponse struct {
+	Data       []Game     `json:"data"`
+	Pagination Pagination `json:"pagination"`
+}
+
+// https://docs.curseforge.com/#tocS_Get%20Game%20Response
+type GetGameResponse struct {
+	Data Game `json:"data"`
+}
+
+// https://docs.curseforge.com/#tocS_Get%20Versions%20Response%20-%20V1
+type GetVersionsResponse struct {
+	Data []GameVersionsByType `json:"data"`
+}
+
+// https://docs.curseforge.com/#tocS_Get%20Versions%20Response%20-%20V2
+type GetVersionTypesResponseV2 struct {
+	Data []GameVersionsByType2 `json:"data"`
+}
+
+// https://docs.curseforge.com/#tocS_Get%20Version%20Types%20Response
+type GetVersionTypesResponse struct {
+	Data []GameVersionType `json:"data"`
+}
