@@ -70,7 +70,7 @@ func (FeaturedMods) WithExcludedModIDs(modID ...schema.ModID) FeaturedModsOption
 	}
 }
 
-func (FeaturedMods) WithGameVersionTypeID(gameVersionTypeID enum.GameVersionType) FeaturedModsOption {
+func (FeaturedMods) WithGameVersionTypeID(gameVersionTypeID schema.GameVersionTypeID) FeaturedModsOption {
 	return func(o *FeaturedModsRequest) {
 		o.GameVersionTypeID = gameVersionTypeID
 	}

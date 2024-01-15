@@ -15,7 +15,7 @@ type GetModsByIdsListRequestBody struct {
 
 // https://docs.curseforge.com/#tocS_GetFeaturedModsRequestBody
 type GetFeaturedModsRequestBody struct {
-	GameID            enum.GameID          `json:"gameId"`
-	ExcludedModIDs    []ModID              `json:"excludedModIds"`
-	GameVersionTypeID enum.GameVersionType `json:"gameVersionTypeId"`
+	GameID            enum.GameID       `json:"gameId"`
+	ExcludedModIDs    []ModID           `json:"excludedModIds"`
+	GameVersionTypeID GameVersionTypeID `json:"gameVersionTypeId"`
 }

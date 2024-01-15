@@ -7,7 +7,6 @@ import (
 	"strconv"
 
 	"github.com/ASjet/go-curseforge/schema"
-	"github.com/ASjet/go-curseforge/schema/enum"
 )
 
 type ModLoadersOption func(*ModLoadersRequest)
@@ -28,7 +27,7 @@ type ModLoaders func(o ...ModLoadersOption) (*schema.ApiResponseOfListOfMinecraf
 type ModLoadersRequest struct {
 	ctx context.Context
 
-	GameVersion *enum.GameVersion
+	GameVersion *schema.GameVersionStr
 	IncludeAll  *bool
 }
 
@@ -72,7 +71,7 @@ func (ModLoaders) WithContext(ctx context.Context) ModLoadersOption {
 	}
 }
 
-func (ModLoaders) WithGameVersion(gameVersion enum.GameVersion) ModLoadersOption {
+func (ModLoaders) WithGameVersion(gameVersion schema.GameVersionStr) ModLoadersOption {
 	return func(o *ModLoadersRequest) {
 		o.GameVersion = &gameVersion
 	}

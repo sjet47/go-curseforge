@@ -6,13 +6,12 @@ import (
 	"net/http"
 
 	"github.com/ASjet/go-curseforge/schema"
-	"github.com/ASjet/go-curseforge/schema/enum"
 )
 
 type MinecraftVersionOption func(*MinecraftVersionRequest)
 
 func NewMinecraftVersionAPI(t http.RoundTripper) MinecraftVersion {
-	return func(gameVersion enum.GameVersion, o ...MinecraftVersionOption) (*schema.ApiResponseOfMinecraftGameVersion, error) {
+	return func(gameVersion schema.GameVersionStr, o ...MinecraftVersionOption) (*schema.ApiResponseOfMinecraftGameVersion, error) {
 		r := new(MinecraftVersionRequest)
 		for _, f := range o {
 			f(r)
@@ -22,13 +21,13 @@ func NewMinecraftVersionAPI(t http.RoundTripper) MinecraftVersion {
 	}
 }
 
-type MinecraftVersion func(gameVersion enum.GameVersion, o ...MinecraftVersionOption) (*schema.ApiResponseOfMinecraftGameVersion, error)
+type MinecraftVersion func(gameVersion schema.GameVersionStr, o ...MinecraftVersionOption) (*schema.ApiResponseOfMinecraftGameVersion, error)
 
 // https://docs.curseforge.com/#get-specific-minecraft-version
 type MinecraftVersionRequest struct {
 	ctx context.Context
 
-	GameVersion enum.GameVersion
+	GameVersion schema.GameVersionStr
 }
 
 func (r *MinecraftVersionRequest) Do(ctx context.Context, t http.RoundTripper) (*http.Response, error) {

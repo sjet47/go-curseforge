@@ -30,8 +30,8 @@ type ModFilesRequest struct {
 	ctx context.Context
 
 	ModID             schema.ModID
-	GameVersion       *enum.GameVersion
-	GameVersionTypeID *enum.GameVersionType
+	GameVersion       *schema.GameVersionStr
+	GameVersionTypeID *schema.GameVersionTypeID
 	ModLoader         *enum.ModLoader
 	Index             int // Not page number!
 	PageSize          int
@@ -86,13 +86,13 @@ func (ModFiles) WithContext(ctx context.Context) ModFilesOption {
 	}
 }
 
-func (ModFiles) WithGameVersion(gameVersion enum.GameVersion) ModFilesOption {
+func (ModFiles) WithGameVersion(gameVersion schema.GameVersionStr) ModFilesOption {
 	return func(o *ModFilesRequest) {
 		o.GameVersion = &gameVersion
 	}
 }
 
-func (ModFiles) WithGameVersionTypeID(gameVersionTypeID enum.GameVersionType) ModFilesOption {
+func (ModFiles) WithGameVersionTypeID(gameVersionTypeID schema.GameVersionTypeID) ModFilesOption {
 	return func(o *ModFilesRequest) {
 		o.GameVersionTypeID = &gameVersionTypeID
 	}

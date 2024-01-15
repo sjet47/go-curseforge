@@ -4,11 +4,18 @@ import (
 	"net/http"
 
 	"github.com/ASjet/go-curseforge/api/files"
+	"github.com/ASjet/go-curseforge/api/games"
 	"github.com/ASjet/go-curseforge/api/minecraft"
 	"github.com/ASjet/go-curseforge/api/mods"
 )
 
 type API struct {
+	games.Games
+	games.Game
+	games.GameVersions
+	games.GameVersionTypes
+	games.GameVersionsV2
+
 	mods.SearchMod
 	mods.Mod
 	mods.Mods
@@ -29,6 +36,12 @@ type API struct {
 
 func New(t http.RoundTripper) *API {
 	return &API{
+		Games:            games.NewGamesAPI(t),
+		Game:             games.NewGameAPI(t),
+		GameVersions:     games.NewGameVersionsAPI(t),
+		GameVersionTypes: games.NewGameVersionTypesAPI(t),
+		GameVersionsV2:   games.NewGameVersionsV2API(t),
+
 		SearchMod:      mods.NewSearchModAPI(t),
 		Mod:            mods.NewModAPI(t),
 		Mods:           mods.NewModsAPI(t),

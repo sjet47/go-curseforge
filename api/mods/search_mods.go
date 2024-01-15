@@ -34,14 +34,14 @@ type SearchModRequest struct {
 	ClassID           *enum.ClassID
 	CategoryID        *enum.CategoryID
 	CategoryIDs       *string
-	GameVersion       *enum.GameVersion
+	GameVersion       *schema.GameVersionStr
 	GameVersions      *string
 	SearchFilter      *string
 	SortField         *enum.ModsSearchSortField
 	SortOrder         *enum.SortOrder
 	ModLoaderType     *enum.ModLoader
 	ModLoaderTypes    *string
-	GameVersionTypeID *enum.GameVersionType
+	GameVersionTypeID *schema.GameVersionTypeID
 	AuthorID          *schema.AuthorID
 	PrimaryAuthorID   *schema.AuthorID
 	Slug              *string
@@ -160,7 +160,7 @@ func (SearchMod) WithCategoryIDs(categoryIDs ...enum.CategoryID) SearchModOption
 	}
 }
 
-func (SearchMod) WithGameVersion(gameVersion enum.GameVersion) SearchModOption {
+func (SearchMod) WithGameVersion(gameVersion schema.GameVersionStr) SearchModOption {
 	return func(r *SearchModRequest) {
 		r.GameVersion = &gameVersion
 	}
@@ -219,7 +219,7 @@ func (SearchMod) WithModLoaderTypes(modLoaderType ...enum.ModLoader) SearchModOp
 	}
 }
 
-func (SearchMod) WithGameVersionTypeID(gameVersionTypeID enum.GameVersionType) SearchModOption {
+func (SearchMod) WithGameVersionTypeID(gameVersionTypeID schema.GameVersionTypeID) SearchModOption {
 	return func(r *SearchModRequest) {
 		r.GameVersionTypeID = &gameVersionTypeID
 	}

@@ -10,24 +10,24 @@ import (
 type MinecraftGameVersion struct {
 	ID                    MinecraftGameVersionID     `json:"id"`
 	GameVersionID         GameVersionID              `json:"gameVersionId"`
-	VersionString         enum.GameVersion           `json:"versionString"`
+	VersionString         GameVersionStr             `json:"versionString"`
 	JarDownloadURL        string                     `json:"jarDownloadUrl"`
 	JsonDownloadURL       string                     `json:"jsonDownloadUrl"`
 	Approved              bool                       `json:"approved"`
 	DateModified          time.Time                  `json:"dateModified"`
-	GameVersionTypeID     enum.GameVersionType       `json:"gameVersionTypeId"`
+	GameVersionTypeID     GameVersionTypeID          `json:"gameVersionTypeId"`
 	GameVersionStatus     enum.GameVersionStatus     `json:"gameVersionStatus"`
 	GameVersionTypeStatus enum.GameVersionTypeStatus `json:"gameVersionTypeStatus"`
 }
 
 // https://docs.curseforge.com/#tocS_MinecraftModLoaderIndex
 type MinecraftModLoaderIndex struct {
-	Name         string           `json:"name"`
-	GameVersion  enum.GameVersion `json:"gameVersion"`
-	Latest       bool             `json:"latest"`
-	Recommended  bool             `json:"recommended"`
-	DateModified time.Time        `json:"dateModified"`
-	Type         enum.ModLoader   `json:"type"`
+	Name         string         `json:"name"`
+	GameVersion  GameVersionStr `json:"gameVersion"`
+	Latest       bool           `json:"latest"`
+	Recommended  bool           `json:"recommended"`
+	DateModified time.Time      `json:"dateModified"`
+	Type         enum.ModLoader `json:"type"`
 }
 
 // https://docs.curseforge.com/#tocS_MinecraftModLoaderVersion
@@ -48,14 +48,14 @@ type MinecraftModLoaderVersion struct {
 	MavenVersionString             string                      `json:"mavenVersionString"`
 	VersionJson                    string                      `json:"versionJson"`
 	LibrariesInstallLocation       string                      `json:"librariesInstallLocation"`
-	MinecraftVersion               enum.GameVersion            `json:"minecraftVersion"`
+	MinecraftVersion               GameVersionStr              `json:"minecraftVersion"`
 	AdditionalFilesJson            string                      `json:"additionalFilesJson"`
 	ModLoaderGameVersionID         GameVersionID               `json:"modLoaderGameVersionId"`
-	ModLoaderGameVersionTypeID     enum.GameVersionType        `json:"modLoaderGameVersionTypeId"`
+	ModLoaderGameVersionTypeID     GameVersionTypeID           `json:"modLoaderGameVersionTypeId"`
 	ModLoaderGameVersionStatus     enum.GameVersionStatus      `json:"modLoaderGameVersionStatus"`
 	ModLoaderGameVersionTypeStatus enum.GameVersionTypeStatus  `json:"modLoaderGameVersionTypeStatus"`
 	McGameVersionID                MinecraftGameVersionID      `json:"mcGameVersionId"`
-	McGameVersionTypeID            enum.GameVersionType        `json:"mcGameVersionTypeId"`
+	McGameVersionTypeID            GameVersionTypeID           `json:"mcGameVersionTypeId"`
 	McGameVersionStatus            enum.GameVersionStatus      `json:"mcGameVersionStatus"`
 	McGameVersionTypeStatus        enum.GameVersionTypeStatus  `json:"mcGameVersionTypeStatus"`
 	InstallProfileJson             string                      `json:"installProfileJson"`
