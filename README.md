@@ -39,7 +39,7 @@
 
 ### Categories
 
-Currently not supported
+- [x] Get Categories
 
 ### Fingerprints
 

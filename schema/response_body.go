@@ -111,3 +111,8 @@ type GetVersionTypesResponseV2 struct {
 type GetVersionTypesResponse struct {
 	Data []GameVersionType `json:"data"`
 }
+
+// https://docs.curseforge.com/#tocS_Get%20Categories%20Response
+type GetCategoriesResponse struct {
+	Data []Category `json:"data"`
+}
