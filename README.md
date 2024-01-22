@@ -43,7 +43,10 @@
 
 ### Fingerprints
 
-Currently not supported
+- [x] Get Fingerprints Matches By Game Id
+- [x] Get Fingerprints Matches
+- [x] Get Fingerprints Fuzzy Matches By Game Id
+- [x] Get Fingerprints Fuzzy Matches
 
 ## Acknowledgements
 
