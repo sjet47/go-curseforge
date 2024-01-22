@@ -17,6 +17,8 @@ type (
 	GameVersionTypeID      int32
 	MinecraftGameVersionID int32
 	MinecraftModLoaderID   int32
+	FingerprintID          int32
+	Fingerprint            int
 )
 
 func (m ModID) Param() string {
@@ -53,4 +55,12 @@ func (m MinecraftGameVersionID) Param() string {
 
 func (m MinecraftModLoaderID) Param() string {
 	return strconv.Itoa(int(m))
+}
+
+func (f FingerprintID) Param() string {
+	return strconv.Itoa(int(f))
+}
+
+func (f Fingerprint) Param() string {
+	return strconv.Itoa(int(f))
 }

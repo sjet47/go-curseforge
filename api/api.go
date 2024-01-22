@@ -5,6 +5,7 @@ import (
 
 	"github.com/ASjet/go-curseforge/api/categories"
 	"github.com/ASjet/go-curseforge/api/files"
+	"github.com/ASjet/go-curseforge/api/fingerprints"
 	"github.com/ASjet/go-curseforge/api/games"
 	"github.com/ASjet/go-curseforge/api/minecraft"
 	"github.com/ASjet/go-curseforge/api/mods"
@@ -30,6 +31,11 @@ type API struct {
 	files.Files
 	files.ModFileChangelog
 	files.ModFileUrl
+
+	fingerprints.FingerprintMatchesByGame
+	fingerprints.FingerprintMatches
+	fingerprints.FingerprintFuzzyMatchesByGame
+	fingerprints.FingerprintFuzzyMatches
 
 	minecraft.MinecraftVersions
 	minecraft.MinecraftVersion
@@ -58,6 +64,11 @@ func New(t http.RoundTripper) *API {
 		Files:            files.NewFilesAPI(t),
 		ModFileChangelog: files.NewModFileChangelogAPI(t),
 		ModFileUrl:       files.NewModFileUrlAPI(t),
+
+		FingerprintMatchesByGame:      fingerprints.NewFingerMatchesByGameAPI(t),
+		FingerprintMatches:            fingerprints.NewFingerprintMatchesAPI(t),
+		FingerprintFuzzyMatchesByGame: fingerprints.NewFingerprintFuzzyMatchesByGameAPI(t),
+		FingerprintFuzzyMatches:       fingerprints.NewFingerprintFuzzyMatchesAPI(t),
 
 		MinecraftVersions: minecraft.NewMinecraftVersionsAPI(t),
 		MinecraftVersion:  minecraft.NewMinecraftVersionAPI(t),

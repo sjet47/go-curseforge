@@ -116,3 +116,13 @@ type GetVersionTypesResponse struct {
 type GetCategoriesResponse struct {
 	Data []Category `json:"data"`
 }
+
+// https://docs.curseforge.com/#tocS_Get%20Fingerprint%20Matches%20Response
+type GetFingerprintMatchesResponse struct {
+	Data FingerprintsMatchesResult `json:"data"`
+}
+
+// https://docs.curseforge.com/#tocS_Get%20Fingerprints%20Fuzzy%20Matches%20Response
+type GetFingerprintsFuzzyMatchesResponse struct {
+	Data FingerprintFuzzyMatchResult `json:"data"`
+}
