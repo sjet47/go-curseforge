@@ -19,3 +19,14 @@ type GetFeaturedModsRequestBody struct {
 	ExcludedModIDs    []ModID           `json:"excludedModIds"`
 	GameVersionTypeID GameVersionTypeID `json:"gameVersionTypeId"`
 }
+
+// https://docs.curseforge.com/#tocS_GetFingerprintMatchesRequestBody
+type GetFingerprintMatchesRequestBody struct {
+	Fingerprints []Fingerprint `json:"fingerprints"`
+}
+
+// https://docs.curseforge.com/#tocS_GetFuzzyMatchesRequestBody
+type GetFuzzyMatchesRequestBody struct {
+	GameID       enum.GameID         `json:"gameId"`
+	Fingerprints []FolderFingerprint `json:"fingerprints"`
+}
