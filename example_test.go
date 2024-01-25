@@ -53,11 +53,11 @@ func Example_getLatestModFile() {
 		panic(err)
 	}
 
-	fmt.Printf("FileName:\t%s\nFileDate:\t%s\nDownloadURL:\t%s\n",
+	fmt.Printf("FileName:    %s\nFileDate:    %s\nDownloadURL: %s\n",
 		rsp.Data[0].FileName, rsp.Data[0].FileDate, rsp.Data[0].DownloadURL)
 
 	// Output:
-	// FileName:       journeymap-1.19.2-5.9.7-forge.jar
-	// FileDate:       2023-05-11 15:42:02.777 +0000 UTC
-	// DownloadURL:    https://edge.forgecdn.net/files/4532/924/journeymap-1.19.2-5.9.7-forge.jar
+	// FileName:    journeymap-1.19.2-5.9.7-forge.jar
+	// FileDate:    2023-05-11 15:42:02.777 +0000 UTC
+	// DownloadURL: https://edge.forgecdn.net/files/4532/924/journeymap-1.19.2-5.9.7-forge.jar
 }
