@@ -9,3 +9,7 @@ type Client struct {
 func NewClient(apiKey string) *Client {
 	return &Client{api.New(apiKeyTransport(apiKey))}
 }
+
+func InitDefault(apiKey string) {
+	api.InitDefault(apiKeyTransport(apiKey))
+}

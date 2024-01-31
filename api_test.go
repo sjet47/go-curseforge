@@ -6,6 +6,7 @@ import (
 	"os"
 	"testing"
 
+	"github.com/ASjet/go-curseforge/api"
 	"github.com/ASjet/go-curseforge/schema"
 	"github.com/ASjet/go-curseforge/schema/enum"
 )
@@ -259,6 +260,15 @@ func TestModLoaders(t *testing.T) {
 func TestModLoader(t *testing.T) {
 	cli := NewClient(apiKey)
 	rsp, err := cli.ModLoader("forge-43.3.7")
+	if err != nil {
+		panic(err)
+	}
+	printJson(rsp)
+}
+
+func TestDefaultModLoader(t *testing.T) {
+	InitDefault(apiKey)
+	rsp, err := api.ModLoader("forge-43.3.7")
 	if err != nil {
 		panic(err)
 	}

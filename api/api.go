@@ -11,6 +11,72 @@ import (
 	"github.com/ASjet/go-curseforge/api/mods"
 )
 
+var (
+	Games            games.Games
+	Game             games.Game
+	GameVersions     games.GameVersions
+	GameVersionTypes games.GameVersionTypes
+	GameVersionsV2   games.GameVersionsV2
+
+	Categories categories.Categories
+
+	SearchMod      mods.SearchMod
+	Mod            mods.Mod
+	Mods           mods.Mods
+	FeaturedMods   mods.FeaturedMods
+	ModDescription mods.ModDescription
+
+	ModFile          files.ModFile
+	ModFiles         files.ModFiles
+	Files            files.Files
+	ModFileChangelog files.ModFileChangelog
+	ModFileUrl       files.ModFileUrl
+
+	FingerprintMatchesByGame      fingerprints.FingerprintMatchesByGame
+	FingerprintMatches            fingerprints.FingerprintMatches
+	FingerprintFuzzyMatchesByGame fingerprints.FingerprintFuzzyMatchesByGame
+	FingerprintFuzzyMatches       fingerprints.FingerprintFuzzyMatches
+
+	MinecraftVersions minecraft.MinecraftVersions
+	MinecraftVersion  minecraft.MinecraftVersion
+	ModLoaders        minecraft.ModLoaders
+	ModLoader         minecraft.ModLoader
+)
+
+func InitDefault(t http.RoundTripper) {
+	d := New(t)
+
+	Games = d.Games
+	Game = d.Game
+	GameVersions = d.GameVersions
+	GameVersionTypes = d.GameVersionTypes
+	GameVersionsV2 = d.GameVersionsV2
+
+	Categories = d.Categories
+
+	SearchMod = d.SearchMod
+	Mod = d.Mod
+	Mods = d.Mods
+	FeaturedMods = d.FeaturedMods
+	ModDescription = d.ModDescription
+
+	ModFile = d.ModFile
+	ModFiles = d.ModFiles
+	Files = d.Files
+	ModFileChangelog = d.ModFileChangelog
+	ModFileUrl = d.ModFileUrl
+
+	FingerprintMatchesByGame = d.FingerprintMatchesByGame
+	FingerprintMatches = d.FingerprintMatches
+	FingerprintFuzzyMatchesByGame = d.FingerprintFuzzyMatchesByGame
+	FingerprintFuzzyMatches = d.FingerprintFuzzyMatches
+
+	MinecraftVersions = d.MinecraftVersions
+	MinecraftVersion = d.MinecraftVersion
+	ModLoaders = d.ModLoaders
+	ModLoader = d.ModLoader
+}
+
 type API struct {
 	games.Games
 	games.Game
