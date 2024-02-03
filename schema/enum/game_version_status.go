@@ -14,3 +14,16 @@ const (
 func (g GameVersionStatus) Param() string {
 	return strconv.Itoa(int(g))
 }
+
+func (g GameVersionStatus) String() string {
+	switch int(g) {
+	case int(GameVersionStatusApproved):
+		return "Approved"
+	case int(GameVersionStatusDeleted):
+		return "Deleted"
+	case int(GameVersionStatusNew):
+		return "New"
+	default:
+		return "Unknown"
+	}
+}

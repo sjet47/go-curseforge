@@ -11,3 +11,7 @@ const (
 func (so SortOrder) Param() string {
 	return string(so)
 }
+
+func (so SortOrder) String() string {
+	return string(so)
+}

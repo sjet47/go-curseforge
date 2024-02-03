@@ -13,3 +13,14 @@ const (
 func (cas CoreApiStatus) Param() string {
 	return strconv.Itoa(int(cas))
 }
+
+func (cas CoreApiStatus) String() string {
+	switch int(cas) {
+	case int(CoreApiStatusPrivate):
+		return "Private"
+	case int(CoreApiStatusPublic):
+		return "Public"
+	default:
+		return "Unknown"
+	}
+}

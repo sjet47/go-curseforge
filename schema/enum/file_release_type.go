@@ -14,3 +14,16 @@ const (
 func (f FileReleaseType) Param() string {
 	return strconv.Itoa(int(f))
 }
+
+func (f FileReleaseType) String() string {
+	switch int(f) {
+	case int(FileReleaseTypeRelease):
+		return "Release"
+	case int(FileReleaseTypeBeta):
+		return "Beta"
+	case int(FileReleaseTypeAlpha):
+		return "Alpha"
+	default:
+		return "Unknown"
+	}
+}

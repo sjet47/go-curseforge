@@ -23,3 +23,34 @@ const (
 func (ms ModsSearchSortField) Param() string {
 	return strconv.Itoa(int(ms))
 }
+
+func (ms ModsSearchSortField) String() string {
+	switch int(ms) {
+	case int(ModsSearchSortFieldFeatured):
+		return "Featured"
+	case int(ModsSearchSortFieldPopularity):
+		return "Popularity"
+	case int(ModsSearchSortFieldLastUpdated):
+		return "Last Updated"
+	case int(ModsSearchSortFieldName):
+		return "Name"
+	case int(ModsSearchSortFieldAuthor):
+		return "Author"
+	case int(ModsSearchSortFieldTotalDownloads):
+		return "Total Downloads"
+	case int(ModsSearchSortFieldCategory):
+		return "Category"
+	case int(ModsSearchSortFieldGameVersion):
+		return "Game Version"
+	case int(ModsSearchSortFieldEarlyAccess):
+		return "Early Access"
+	case int(ModsSearchSortFieldFeaturedReleased):
+		return "Featured Released"
+	case int(ModsSearchSortFieldReleasedDate):
+		return "Released Date"
+	case int(ModsSearchSortFieldRating):
+		return "Rating"
+	default:
+		return "Unknown"
+	}
+}

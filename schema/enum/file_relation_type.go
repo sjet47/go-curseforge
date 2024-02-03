@@ -17,3 +17,22 @@ const (
 func (fr FileRelationType) Param() string {
 	return strconv.Itoa(int(fr))
 }
+
+func (fr FileRelationType) String() string {
+	switch int(fr) {
+	case int(EmbeddedLibrary):
+		return "Embedded Library"
+	case int(OptionalDependency):
+		return "Optional Dependency"
+	case int(RequiredDependency):
+		return "Required Dependency"
+	case int(Tool):
+		return "Tool"
+	case int(Incompatible):
+		return "Incompatible"
+	case int(Include):
+		return "Include"
+	default:
+		return "Unknown"
+	}
+}
