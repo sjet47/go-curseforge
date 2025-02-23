@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/ASjet/go-curseforge/schema"
+	"github.com/sjet47/go-curseforge/schema"
 )
 
 type ModFileOption func(*ModFileRequest)

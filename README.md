@@ -1,4 +1,4 @@
-[![Go Reference](https://pkg.go.dev/badge/github.com/ASjet/go-curseforge.svg)](https://pkg.go.dev/github.com/ASjet/go-curseforge)
+[![Go Reference](https://pkg.go.dev/badge/github.com/sjet47/go-curseforge.svg)](https://pkg.go.dev/github.com/sjet47/go-curseforge)
 
 # go-curseforge
 

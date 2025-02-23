@@ -1,6 +1,6 @@
 package curseforge
 
-import "github.com/ASjet/go-curseforge/api"
+import "github.com/sjet47/go-curseforge/api"
 
 type Client struct {
 	*api.API

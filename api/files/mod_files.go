@@ -6,8 +6,8 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/ASjet/go-curseforge/schema"
-	"github.com/ASjet/go-curseforge/schema/enum"
+	"github.com/sjet47/go-curseforge/schema"
+	"github.com/sjet47/go-curseforge/schema/enum"
 )
 
 type ModFilesOption func(*ModFilesRequest)

@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/ASjet/go-curseforge/schema"
+	"github.com/sjet47/go-curseforge/schema"
 )
 
 type ModLoadersOption func(*ModLoadersRequest)

@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/ASjet/go-curseforge/schema/enum"
+	"github.com/sjet47/go-curseforge/schema/enum"
 )
 
 var (

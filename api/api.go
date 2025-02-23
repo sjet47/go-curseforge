@@ -3,12 +3,12 @@ package api
 import (
 	"net/http"
 
-	"github.com/ASjet/go-curseforge/api/categories"
-	"github.com/ASjet/go-curseforge/api/files"
-	"github.com/ASjet/go-curseforge/api/fingerprints"
-	"github.com/ASjet/go-curseforge/api/games"
-	"github.com/ASjet/go-curseforge/api/minecraft"
-	"github.com/ASjet/go-curseforge/api/mods"
+	"github.com/sjet47/go-curseforge/api/categories"
+	"github.com/sjet47/go-curseforge/api/files"
+	"github.com/sjet47/go-curseforge/api/fingerprints"
+	"github.com/sjet47/go-curseforge/api/games"
+	"github.com/sjet47/go-curseforge/api/minecraft"
+	"github.com/sjet47/go-curseforge/api/mods"
 )
 
 var (

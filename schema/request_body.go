@@ -1,6 +1,6 @@
 package schema
 
-import "github.com/ASjet/go-curseforge/schema/enum"
+import "github.com/sjet47/go-curseforge/schema/enum"
 
 // https://docs.curseforge.com/#tocS_GetModFilesRequestBody
 type GetModFilesRequestBody struct {

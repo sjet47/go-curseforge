@@ -3,7 +3,7 @@ package schema
 import (
 	"time"
 
-	"github.com/ASjet/go-curseforge/schema/enum"
+	"github.com/sjet47/go-curseforge/schema/enum"
 )
 
 // https://docs.curseforge.com/#tocS_Mod
